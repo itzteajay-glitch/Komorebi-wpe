@@ -24,3 +24,7 @@ I have noticed that sometimes there is some weird reversion back to old wallpape
 
 ## Issues
 If you have any issues feel free to submit one. Please include the relevant parts of the logs which should be stored in the wpe2k directory in your home.
+
+## Demo
+
+https://youtu.be/jGYQJsBPmhU

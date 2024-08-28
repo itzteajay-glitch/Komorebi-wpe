@@ -203,7 +203,7 @@ migrate() {
         done
         echo "80"
         echo "# Copying directories from /home/tjhoth/wpe2k/tmp/ to /System/Resources/Komorebi"
-        cp -r /home/tjhoth/wpe2k/tmp/* /System/Resources/Komorebi
+        zenity --password --title="Sudo Password" --text="Please enter your sudo password.\nThis is only used for this copy." | sudo cp -r ${wpe2kTempDir}* /System/Resources/Komorebi
         echo "90"
         echo "# Cleaning up temporary files"
         rm -rf /home/tjhoth/wpe2k/tmp
