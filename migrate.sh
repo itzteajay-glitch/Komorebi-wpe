@@ -44,7 +44,9 @@ setup() {
         # Verify Steam is installed
         echo "5" ; sleep 1
         echo "# Verifying steam installation"
-        which steam >> /dev/null
+        checkCommand=$(which steam)
+        logMessage=$(echo "which steam | $checkCommand"); log "$logExec" "$logMessage"
+        which steam
         if [ $? = 0 ]
         then
             logMessage="Setup: Steam is installed"; log "$logInfo" "$logMessage"
@@ -58,6 +60,8 @@ setup() {
         # Check home dir for .steam file
         echo "10" ; sleep 1
         echo "# Checking home dir for .steam directory"
+        checkCommand=$(ls -a /home/$USER | grep .steam$)
+        logMessage=$(echo "ls -a /home/$USER | grep .steam$ | $checkCommand"); log "$logExec" "$logMessage"
         ls -a /home/$USER | grep .steam$
         if [ $? = 0 ]
         then
@@ -86,8 +90,8 @@ setup() {
         # Checks to see if Komorebi is installed.
         echo "20" ; sleep 1
         echo "# Checking for Komorebi" ; sleep 1
-        komorebi=$(dpkg-query -W komorebi)
-        logMessage=$(echo "dpkg-query -W komorebi | $komorebi"); log "$logExec" "$logMessage"
+        checkCommand=$(dpkg-query -W komorebi)
+        logMessage=$(echo "dpkg-query -W komorebi | $checkCommand"); log "$logExec" "$logMessage"
         dpkg-query -W komorebi >> /dev/null
         if [ $? = 0 ]
         then
