@@ -45,7 +45,11 @@ do
         echo "No fullscreen app detected."
         kpidCount=$(ps -ef | grep komorebi | grep -v grep | awk '{print$2}' | wc -l)
         case $kpidCount in
-        0) /System/Applications/komorebi & ;; 
+        0) /System/Applications/komorebi &
+            zenity --notification\
+            --window-icon="dialog-information" \
+            --text="wpk2k has launched komorebi"
+             ;;
         1) echo "Komorebi already running" ;; 
         *) echo "More than 1 instance of Komorebi running. Killing all but 1."
             keepAlive="true"
@@ -59,12 +63,18 @@ do
             if [ $winH -gt $maxMonResHp ]
             then
                 killKPid
+                zenity --notification\
+                --window-icon="dialog-information" \
+                --text="wpk2k has closed komorebi"
             else
                 echo "Height lower than ${maxMonResHp}"
                 echo "No fullscreen app detected."
                 /System/Applications/komorebi &
+                zenity --notification\
+                --window-icon="dialog-information" \
+                --text="wpk2k has launched komorebi"
             fi
         done
     fi
-    sleep 10
+    sleep 3
 done
