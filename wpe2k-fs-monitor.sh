@@ -65,14 +65,14 @@ do
                 killKPid
                 zenity --notification\
                 --window-icon="dialog-information" \
-                --text="wpk2k has closed komorebi"
+                --text="wpe2k has closed komorebi"
             else
                 echo "Height lower than ${maxMonResHp}"
                 echo "No fullscreen app detected."
                 /System/Applications/komorebi &
                 zenity --notification\
                 --window-icon="dialog-information" \
-                --text="wpk2k has launched komorebi"
+                --text="wpe2k has launched komorebi"
             fi
         done
     fi
