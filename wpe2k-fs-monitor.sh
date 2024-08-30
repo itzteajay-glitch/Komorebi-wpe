@@ -37,8 +37,30 @@ do
     monResWpHp=$(echo "${maxMonResWp}x${maxMonResHp}")
 
     # checks to see if any windows are match the width % output.
+    winList=$(xwininfo -root -int -tree | grep -v '(has no name)\|child' | awk '{$1=$1};1')
+    declare -A winIdArray
+    declare -A winNameArray
+    declare -A winResArray
+    arrayCounter="0"
+    for i in "${winList}"
+    do
+        declare "index$arraycounter=$arrayCounter"
+        winListArray[winId]=$(echo $i | awk '{print$1}')
+        nameField1=$(echo $i | cut -d '"' -f 2)
+        nameField2=$(echo $i | cut -d '(' -f 2 | cut -d '"' -f 2)
+        if [ -z $nameField1 ]
+        then
+            echo "nameField1 is empty... Using nameField2"
+            declare "winName$arrayCounter=$nameField2"
+        else
+            echo "nameField1 found... Using nameField1"
+            declare "winName$arrayCounter=$nameField1"
+        fi
+        winRes=$(echo $i)
+        ((arrayCounter++))
+    done
     declare -a winMaxW=$(xwininfo -root -tree | grep $maxMonResWp | grep -v "\(Desktop\|has no name\|@!0,0;BDHF\|mutter guard window\)" | sed "s/^.*${maxMonResWp}/${maxMonResWp}/" | cut -d + -f 1 | tr '\n' ' ')
-    
+
     if [ -z $winMaxW ]
     then
         echo "Height lower than ${maxMonResHp}"
@@ -49,7 +71,7 @@ do
             zenity --notification\
             --window-icon="dialog-information" \
             --text="wpk2k has launched komorebi"
-             ;;
+            ;;
         1) echo "Komorebi already running" ;; 
         *) echo "More than 1 instance of Komorebi running. Killing all but 1."
             keepAlive="true"
