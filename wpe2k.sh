@@ -10,6 +10,7 @@
 wpe2kDir="/home/${USER}/wpe2k/"
 wpe2kTempDir="${wpe2kDir}tmp/"
 logFile="${wpe2kDir}wpe2k-migrate.log"
+wpe2krepo="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
 # Make Directories
 mkdir -p ${wpe2kDir}
@@ -128,7 +129,7 @@ setup() {
             --text="Unable to locate Komorebi resources directory. Please see $logFile"
             exit 0
         fi
-        
+
         echo "80"
         echo "# Checking for ffmpeg" ; sleep 1
         checkCommand=$(which ffmpeg)
@@ -144,7 +145,6 @@ setup() {
             exit 0
         fi
 
-
         echo "85"
         echo "# All checks passed" ; sleep 1
         echo "100" ; sleep 1
@@ -153,6 +153,45 @@ setup() {
     --title="$title" \
     --percentage=0 \
     --auto-close
+
+    zenity --question \
+    --text="This step turns the wpe2k-fs-monitor.sh script into a service. This will do it's best to kill komorebi when a full screen application is up and will start komorebi back up when no full screen app is detected.\n\n would you like to configure this script as a service?"
+    case $? in
+    0) zenity --password --title="Sudo Password" | sudo -Sv
+        (
+            echo "10"
+            echo "# Generating Service file"; sleep 1
+            echo -e "[Unit]\nDescription=Komorebi Monitoring Service\n\n[Service]\nType=simple\nExecStart=/bin/bash ${wpe2krepo}/wpe2k-fs-monitor.sh\n\n[Install]\nWantedBy=multi-user.target" | sudo -S tee /etc/systemd/user/wpe2k-fs-monitor.service
+            sudo -S chmod +x /etc/systemd/user/wpe2k-fs-monitor.service
+            echo "20"
+            echo "reloading systemctl"
+            sudo -S systemctl --machine=${USER}@.host --user daemon-reload
+            echo "30"
+            echo "# Enabling and setting wpe2k-fs-monitor.service to start on boot"
+            sudo -S systemctl --machine=${USER}@.host --user enable wpe2k-fs-monitor.service
+            echo "40"
+            echo "# Starting service"
+            sudo -S systemctl --machine=${USER}@.host --user start wpe2k-fs-monitor.service
+            echo "50"
+            echo "# Verifying service is running"
+            sudo -S systemctl --machine=${USER}@.host --user status -l wpe2k-fs-monitor.service | grep running
+            if [ $? = 0 ]
+            then
+                echo "wpe2k-fs-monitor.service was found and is running"
+            else
+                zenity --error \
+                --text="service was not running. Please investigate further."
+                exit 0
+            fi
+        ) |
+        zenity --progress \
+        --title="$title" \
+        --percentage=0 \
+        --auto-close ;;
+    1) echo "Skipping..." ;;
+    5) echo "Timeout reached. Skipping" ;;
+    *) echo "Invalid Input" ;;
+    esac
 }
 
 migrate() {
@@ -165,7 +204,7 @@ migrate() {
         zenity --info --text="Please select the directory where wallpaper engine stores workshop items. This can be found by right clicking on an item in WPE's UI and clicking \"open in explorer\""
         wpeWorkshopLocation=`zenity --file-selection --directory --filename="/home/$USER/.steam/steam/steamapps/workshop/content/" --title="Please locate your steam workshop directory"`
         case $? in
-        0) echo $wpeWorkshopLocation > ${wpe2kDir}komorebi-wpe-workshop.txt ;;
+        0) echo $wpeWorkshopLocation >${wpe2kDir}komorebi-wpe-workshop.txt ;;
         1) echo "No file selected." ;;
         -1) echo "An unexpected error has occurred." ;;
         esac
@@ -175,7 +214,7 @@ migrate() {
     (
         echo "2"
         echo "# Generating video-wallpapers.lst file"; sleep 1
-        grep -r '"type" : "video"' ${wpeWorkshopLocation} | cut -d '/' -f 10 > ${wpe2kDir}video-wallpapers.lst
+        grep -r '"type" : "video"' ${wpeWorkshopLocation} | cut -d '/' -f 10 >${wpe2kDir}video-wallpapers.lst
         wpeDirCounter=1
         echo "3"
         echo "# Beginning Migration of video files"
@@ -198,7 +237,7 @@ migrate() {
             mkdir -p -p "${wpe2kTempDir}${getTitle}"
             ffmpeg -y -loglevel quiet -ss 00:00:01 -i "${wpeWorkshopLocation}/${wpeDir}/${getFile}" -frames:v 1 -q:v 5 "${wpe2kTempDir}${getTitle}/wallpaper.jpg" >>/dev/null
             cp "${wpeWorkshopLocation}/${wpeDir}/${getFile}" "${wpe2kTempDir}${getTitle}"
-            echo -e "[Info]\nWallpaperType=video\nVideoFileName=$getFile\n\n[DateTime]\nVisible=false\nParallax=true\nMarginTop=0\nMarginRight=0\nMarginLeft=10\nMarginBottom=45\nRotationX=0\nRotationY=0\nRotationZ=0\nPosition=center\nAlignment=center\nAlwaysOnTop=true\nColor=#dd22dd22dd22\nAlpha=255\nShadowColor=#dd22dd22dd22\nShadowAlpha=255\nTimeFont=Lato Light 30\nDateFont=Lato Light 20" > ${wpe2kTempDir}${getTitle}/config
+            echo -e "[Info]\nWallpaperType=video\nVideoFileName=$getFile\n\n[DateTime]\nVisible=false\nParallax=true\nMarginTop=0\nMarginRight=0\nMarginLeft=10\nMarginBottom=45\nRotationX=0\nRotationY=0\nRotationZ=0\nPosition=center\nAlignment=center\nAlwaysOnTop=true\nColor=#dd22dd22dd22\nAlpha=255\nShadowColor=#dd22dd22dd22\nShadowAlpha=255\nTimeFont=Lato Light 30\nDateFont=Lato Light 20" >${wpe2kTempDir}${getTitle}/config
             unset getFile
         done
         echo "80"
@@ -231,17 +270,13 @@ do
     case "$mmitem" in
     "${mmitems[0]}") # Setup
         logMessage="Main Menu: User selected $mmitem"; log "$logInfo" "$logMessage"
-        setup
-        ;; 
+        setup ;;
     "${mmitems[1]}") # Migrate
         logMessage="Main Menu: User selected $mmitem"; log "$logInfo" "$logMessage"
-        migrate
-        ;; 
+        migrate ;;
     "${mmitems[2]}") # Main Menu
-        logMessage="Main Menu: User Selected $mmitem"; log "$logInfo" "$logMessage"
-        ;; 
+        logMessage="Main Menu: User Selected $mmitem"; log "$logInfo" "$logMessage" ;;
     *) #fallback
-        logMessage="Main Menu: User selected invalid option. Fallback to main menu."; log "$logWarn" "$logMessage"
-        ;; 
+        logMessage="Main Menu: User selected invalid option. Fallback to main menu."; log "$logWarn" "$logMessage";;
     esac
 done
