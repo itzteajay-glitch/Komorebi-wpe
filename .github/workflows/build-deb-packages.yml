@@ -4,9 +4,6 @@ name: Build Debian Packages
 
 on: [push]
 
-env:
-  INPUT_SOURCE_DIR: ./releases/current-0.0.1.a
-
 jobs:
   build-debs:
     runs-on: ubuntu-latest
@@ -15,5 +12,6 @@ jobs:
       - uses: jtdor/build-deb-action@v1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
+          INPUT_SOURCE_DIR: ./releases/current-0.0.1.a
         with:
           buildpackage-opts: --build=binary --no-sign
