@@ -5,7 +5,7 @@ name: Build Debian Packages
 on: [push]
 
 env:
-  source-dir: releases/*/
+  INPUT_SOURCE_DIR: ./releases/*/
 
 
 jobs:
