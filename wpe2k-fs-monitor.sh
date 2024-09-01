@@ -93,7 +93,7 @@ getWindows() {
             echo "   - $arrayCounter No Action Needed"
         fi
     done
-    if [[ "${komorebiTriggerKill[@]}" =~ "TRUE" ]] && [[ "${winHiddenState[$@]}" =~ "FALSE" ]]
+    if [[ "${komorebiTriggerKill[@]}" =~ "TRUE" ]]
     then
         killKomorebi="TRUE"
     else
@@ -109,6 +109,10 @@ getWindows() {
     ###
 }
 
+cleanUp() {
+   unset winTable winTableIndexArray winIdArray winNameArray winResWArray winResHArray winResMaxWArray winResMaxHArray winResFSArray winHiddenState winIgnoreArray komorebiTriggerKill
+}
+
 killKPid() {
     if [ "${1}" = "TRUE" ]
     then
@@ -117,6 +121,7 @@ killKPid() {
     fi
     for kpid in ${komorebiPids}
     do
+        echo "Brutal kill"
         echo $kpid
         kill $kpid
         sleep 1
@@ -144,6 +149,7 @@ do
     getWindows
 
     kpidCount=$(ps -ef | grep '/System/Applications/komorebi' | grep -v 'grep' | awk '{print$2}' | wc -l)
+    komorebiPids=$(ps -ef | grep '/System/Applications/komorebi' | grep -v 'grep' | awk '{print$2}')
 
     if [ "${killKomorebi}" = "TRUE" ]
     then
@@ -173,5 +179,6 @@ do
             ;;
         esac
     fi
+    cleanUp
     sleep 3
 done
