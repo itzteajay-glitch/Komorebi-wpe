@@ -14,5 +14,4 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           buildpackage-opts: --build=binary --no-sign
-inputs:
-  source-dir: releases/*/
+          source-dir: ./releases/current-0.0.1.a
