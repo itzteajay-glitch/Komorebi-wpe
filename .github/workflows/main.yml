@@ -4,13 +4,13 @@
   uses: jiro4989/build-deb-action@v2
   with:
     # Package name of debian package.
-    package: 
+    package: wpe2k
     # Directory of release files.
     package_root: 
     # Package maintainer name.
-    maintainer: 
+    maintainer: itzteajay-glitch <itzteajay@gmail.com>
     # Package version.
-    version: 
+    version: 0.0.1a
     # Package installed size. GitHub Actions set summarized byte size of `package_root` directory when this parameter is empty.
     installed_size: # optional, default is 
     # Package dependencies.
