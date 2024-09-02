@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.7-beta.6](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.5...v1.0.7-beta.6) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* created placeholder changelog and updated release.yml ([2c87122](https://github.com/itzteajay-glitch/wpe2k/commit/2c87122e42e0d5dd3214aabb1364c1ef57ac7e4f))
+
 ## [1.0.7-beta.5](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.4...v1.0.7-beta.5) (2024-09-02)
 
 
