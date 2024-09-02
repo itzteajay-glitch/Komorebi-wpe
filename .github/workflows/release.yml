@@ -40,13 +40,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Validating Release
-        id: release_validation
+        id: verified
         env:
-          RELEASE_VERSION: ${{ needs.release.outputs.release-tag }}
+          verified-release-tag: ${{ needs.release.outputs.release-tag }}
         if: ${{ env.RELEASE_VERSION == '' }}
         run: |
             echo "No new release found"
             exit 0
+    outputs:
+      release-tag: ${{ steps.verified.outputs.verified-release-tag }}
 
   build:
     needs: verify-release
@@ -62,15 +64,16 @@ jobs:
           source-dir: ./releases/wpe2k
           artifacts-dir: ./releases/wpe2k/debian/artifacts
       - name: Rename and push files into release
+        id: release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          RELEASE_VERSION: ${{ needs.release.outputs.release-tag }}
+          RELEASE_VERSION: ${{ needs.verify-release.outputs.release-tag }}
         run: |
             mkdir -p new
             for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k)
               do
                 suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3)
-                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_$RELEASE_VERSION_$suffix
+                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_${{ env.RELEASE_VERSION }}_$suffix
               done
             cd ./new
-            gh release upload $RELEASE_VERSION *
+            gh release upload ${{ env.RELEASE_VERSION }} *
