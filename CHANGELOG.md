@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.5](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.4...v1.0.5) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* created an overwrite of the artifacts directory in the release.yml file for automatic builds. ([1bc8edf](https://github.com/itzteajay-glitch/wpe2k/commit/1bc8edf576940ee3a2c6d43156799e3fe6f0fe17))
+
 ## [1.0.4](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.3...v1.0.4) (2024-09-02)
 
 
