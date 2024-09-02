@@ -47,7 +47,7 @@ jobs:
         if: ${{ env.RELEASE_VERSION == '' }}
         run: |
             echo "No new release found"
-            echo echo "SKIP_BUILD=TRUE)" >> $GITHUB_OUTPUT
+            echo "SKIP_BUILD=TRUE" >> $GITHUB_OUTPUT
       - name: Pass or fail
         run: |
           if [[ ${{ steps.release_validation.outputs.SKIP_BUILD }} == TRUE ]]; then exit 0; else exit 1; fi
