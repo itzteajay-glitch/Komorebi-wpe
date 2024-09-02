@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.6](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.5...v1.0.6) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* added /* to include all the files built in the relase upload. ([2672786](https://github.com/itzteajay-glitch/wpe2k/commit/267278677004260a0dd0d5e4b72393701f17cdbe))
+
 ## [1.0.5](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.4...v1.0.5) (2024-09-02)
 
 
