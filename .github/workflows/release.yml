@@ -65,13 +65,13 @@ jobs:
       - name: Attaching the package files to release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-        run: |
-          mkdir -p new
-          for file in $(ls | grep wpe2k)
-            do
-              echo $file
-              suffix=$(echo $file | cut -d _ -f 3)
-              echo $suffix
-              cp $file new/wpe2k_$newVer_$suffix
-            done
-          gh release upload ${{ needs.release.outputs.release-tag }} *
+          run: |
+            mkdir -p new
+            for file in $(ls | grep wpe2k)
+              do
+                echo $file
+                suffix=$(echo $file | cut -d _ -f 3)
+                echo $suffix
+                cp $file new/wpe2k_$newVer_$suffix
+              done
+            gh release upload ${{ needs.release.outputs.release-tag }} *
