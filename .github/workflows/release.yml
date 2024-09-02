@@ -48,8 +48,7 @@ jobs:
           buildpackage-opts: --build=binary --no-sign
           source-dir: ./releases/current-0.0.1.a
 
-      - name: Build and upload Go binaries
-        if: steps.build.outcome == 'success'
+      - name: Build and upload release files
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
