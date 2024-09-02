@@ -161,20 +161,20 @@ setup() {
         (
             echo "10"
             echo "# Generating Service file"; sleep 1
-            echo -e "[Unit]\nDescription=Komorebi Monitoring Service\n\n[Service]\nType=simple\nExecStart=/bin/bash ${wpe2krepo}/wpe2k-fs-monitor.sh\n\n[Install]\nWantedBy=multi-user.target" | sudo -S tee /etc/systemd/user/wpe2k-fs-monitor.service
+            echo -e "[Unit]\nDescription=Komorebi Monitoring Service\n\n[Service]\nUser$USER\nType=simple\nExecStart=/bin/bash ${wpe2krepo}/wpe2k-fs-monitor.sh\n\n[Install]\nWantedBy=default.target" | sudo -S tee /etc/systemd/system/wpe2k-fs-monitor.service
             sudo -S chmod +x /etc/systemd/user/wpe2k-fs-monitor.service
             echo "20"
             echo "reloading systemctl"
-            sudo -S systemctl --machine=${USER}@.host --user daemon-reload
+            sudo -S systemctl --machine=${USER}@.host daemon-reload
             echo "30"
             echo "# Enabling and setting wpe2k-fs-monitor.service to start on boot"
-            sudo -S systemctl --machine=${USER}@.host --user enable wpe2k-fs-monitor.service
+            sudo -S systemctl --machine=${USER}@.host enable wpe2k-fs-monitor.service
             echo "40"
             echo "# Starting service"
-            sudo -S systemctl --machine=${USER}@.host --user start wpe2k-fs-monitor.service
+            sudo -S systemctl --machine=${USER}@.host start wpe2k-fs-monitor.service
             echo "50"
             echo "# Verifying service is running"
-            sudo -S systemctl --machine=${USER}@.host --user status -l wpe2k-fs-monitor.service | grep running
+            sudo -S systemctl --machine=${USER}@.host status -l wpe2k-fs-monitor.service | grep running
             if [ $? = 0 ]
             then
                 echo "wpe2k-fs-monitor.service was found and is running"
