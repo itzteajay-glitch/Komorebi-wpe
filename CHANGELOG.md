@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.13](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.12...v1.0.13) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* corrected switch for mkdir command in release.yml ([299393c](https://github.com/itzteajay-glitch/wpe2k/commit/299393c3dfaf3be0843ba64d474cbd9a6b4742d7))
+
 ## [1.0.12](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.11...v1.0.12) (2024-09-02)
 
 
