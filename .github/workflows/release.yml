@@ -47,6 +47,7 @@ jobs:
         with:
           buildpackage-opts: --build=binary --no-sign
           source-dir: ./releases/wpe2k
+          artifacts-dir: ./releases/wpe2k/debian/artifacts
 
       - name: Build and upload release files
         env:
