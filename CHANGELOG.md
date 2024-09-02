@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.27](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.26...v1.0.27) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* fixed broken sintax in the SKIP_BUILD var ([eb8c0b4](https://github.com/itzteajay-glitch/wpe2k/commit/eb8c0b4a7e3851ea365cd8f611d3c04565a1ad09))
+
 ## [1.0.26](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.25...v1.0.26) (2024-09-02)
 
 
