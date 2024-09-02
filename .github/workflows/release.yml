@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - beta
+      - dev
   workflow_dispatch:
 
 jobs:
