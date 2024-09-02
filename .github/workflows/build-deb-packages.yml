@@ -16,3 +16,5 @@ jobs:
         with:
           buildpackage-opts: --build=binary --no-sign
           source-dir: ./wpe2k-0.0.1
+        run:
+          | go mod init
