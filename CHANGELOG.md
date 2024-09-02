@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.3](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.2...v1.0.3) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Updated the github runner file to point to the right directory which should result in populated files in the release. ([0fd59ed](https://github.com/itzteajay-glitch/wpe2k/commit/0fd59edf2450efff94a75f5e260562ad07e7babb))
+
 ## [1.0.2](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.1...v1.0.2) (2024-09-02)
 
 
