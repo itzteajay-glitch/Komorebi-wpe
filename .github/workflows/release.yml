@@ -41,7 +41,7 @@ jobs:
     steps:
       - name: Validating Release
         env:
-          verified-release-tag: ${{ needs.release.outputs.release-tag }}
+          release-tag: ${{ needs.release.outputs.release-tag }}
         if: ${{ env.verified-release-tag == '' }}
         run: |
             echo "No new release found"
@@ -49,10 +49,11 @@ jobs:
       - name: Validating Release
         id: verified-release
         env:
-          verified-release-tag: ${{ needs.release.outputs.release-tag }}
-        if: ${{ env.verified-release-tag != '' }}
+          release-tag: ${{ needs.release.outputs.release-tag }}
+        if: ${{ env.release-tag != '' }}
         run: |
             echo "New Release Found."
+            echo verified-release-tag=${{ env.release-tag }} >> >> $GITHUB_OUTPUT
             exit 0
     outputs:
       verified-release-tag: ${{ steps.verified-release.outputs.verified-release-tag }}
