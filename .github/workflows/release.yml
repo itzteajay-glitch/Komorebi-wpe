@@ -54,13 +54,13 @@ jobs:
               echo $suffix
               cp ./releases/wpe2k/debian/artifacts/$file ./releases/wpe2k/debian/artifacts/new/wpe2k_$newVer_$suffix
             done
-            cd ./releases/wpe2k/debian/artifacts/new/
+            tar cvzf releaseFiles.tar.gz ./releases/wpe2k/debian/artifacts/new/*
             ls
       - name: Preserving release files for distrobution
         uses: actions/upload-artifact@v4
         with:
           name: releaseFiles
-          path: ./releases/wpe2k/debian/artifacts/new/*
+          path: releaseFiles.tar.gz
     outputs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
       
@@ -77,5 +77,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
-          ls ./releases/wpe2k/debian/artifacts/new/
-          gh release upload ${{ needs.release.outputs.release-tag }} ./releases/wpe2k/debian/artifacts/new/*
+          tar xvzf releaseFiles.tar.gz -c .
+          rm releaseFiles.tar.gz
+          gh release upload ${{ needs.release.outputs.release-tag }} *
