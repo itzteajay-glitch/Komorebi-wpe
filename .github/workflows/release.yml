@@ -14,23 +14,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Generating Release Packages
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: jtdor/build-deb-action@v1
-        env:
-          DEB_BUILD_OPTIONS: noautodbgsym
-        with:
-          buildpackage-opts: --build=binary --no-sign
-          source-dir: ./releases/wpe2k
-          artifacts-dir: ./releases/wpe2k/debian/artifacts
-      - name: Preserving release files for distrobution
-        uses: actions/upload-artifact@v4
-        with:
-          name: releaseFiles
-          path: ./releases/wpe2k/debian/artifacts/*
   release:
     needs: build
     name: Generating Semantic Release
@@ -52,25 +35,29 @@ jobs:
     outputs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
 
-  publish:
-    needs: release
-    name: Publishing files
+  build:
+    name: Generating Release Packages
     runs-on: ubuntu-latest
     steps:
-      - name: Fetching release files for release
-        uses: actions/download-artifact@v4
+      - uses: actions/checkout@v4
+      - uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
         with:
-          name: releaseFiles
+          buildpackage-opts: --build=binary --no-sign
+          source-dir: ./releases/wpe2k
+          artifacts-dir: ./releases/wpe2k/debian/artifacts
       - name: Attaching the package files to release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
             mkdir -p new
-            for file in $(ls | grep wpe2k)
+            for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k)
               do
                 echo $file
                 suffix=$(echo $file | cut -d _ -f 3)
                 echo $suffix
                 cp $file new/wpe2k_$newVer_$suffix
               done
+              ls
             gh release upload ${{ needs.release.outputs.release-tag }} *
