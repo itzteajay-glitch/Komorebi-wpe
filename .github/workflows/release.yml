@@ -13,6 +13,18 @@ on:
   workflow_dispatch:
 
 jobs:
+  build:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
+        with:
+          buildpackage-opts: --build=binary --no-sign
+          source-dir: ./releases/wpe2k
+          artifacts-dir: ./releases/wpe2k/debian/artifacts
   release:
     name: Semantic release
     runs-on: ubuntu-latest
@@ -30,30 +42,22 @@ jobs:
           SKIP_NPM_PUBLISH: true
           SKIP_DOCKER_PUBLISH: true
         uses: open-sauced/release@v2
-    outputs:
-      release-tag: ${{ steps.semantic-release.outputs.release-tag }}
-  build:
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: jtdor/build-deb-action@v1
-        env:
-          DEB_BUILD_OPTIONS: noautodbgsym
-        with:
-          buildpackage-opts: --build=binary --no-sign
-          source-dir: ./releases/wpe2k
-          artifacts-dir: ./releases/wpe2k/debian/artifacts
-
       - name: '♻️ Rename release files w new version'
         env:
           newVer: ${{ env.RELEASE_VERSION }}
         run: |
+              mkdir ./releases/wpe2k/debian/artifacts/new
               cd ./releases/wpe2k/debian/artifacts
-              for file in $(ls | grep wpe2k); do suffix=$(echo $file | cut -d _ -f 3); sudo mv $file wpe2k_$newVer_$suffix; done
+              for file in $(ls | grep wpe2k); do suffix=$(echo $file | cut -d _ -f 3); cp $file ./releases/wpe2k/debian/artifacts/new/wpe2k_$newVer_$suffix; done
+    outputs:
+      release-tag: ${{ steps.semantic-release.outputs.release-tag }}
 
+  publish-release:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
       - name: Build and upload release files
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
-          gh release upload ${{ needs.release.outputs.release-tag }} ./releases/wpe2k/debian/artifacts/*
+          gh release upload ${{ needs.release.outputs.release-tag }} ./releases/wpe2k/debian/artifacts/new/*
