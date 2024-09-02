@@ -1,0 +1,54 @@
+# https://github.com/marketplace/actions/open-sauced-release
+name: Semantic release
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Semantic release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: "☁️  checkout repository"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: "🚀 release"
+        id: semantic-release
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          SKIP_NPM_PUBLISH: true
+          SKIP_DOCKER_PUBLISH: true
+        uses: open-sauced/release@v2
+
+    outputs:
+        release-tag: ${{ steps.semantic-release.outputs.release-tag }}
+
+  build:
+    needs:
+      - release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # release changes require contents write
+
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: 1.21
+
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Build and upload Go binaries
+      env:
+        GH_TOKEN: ${{ RELEASE_TOKEN }}
+      run: |
+        go build -o build/my-go-binary
+        gh release upload ${{ needs.release.outputs.release-tag }} build/my-go-binary

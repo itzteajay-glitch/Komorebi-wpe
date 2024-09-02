@@ -3,14 +3,7 @@
 name: Package and Release Pipeline
 
 on:
-  push:
-    branches:
-      - main
-      - next
-      - next-major
-      - alpha
-      - beta
-      - dev
+  release
 
 jobs:
   build-debs:
@@ -22,25 +15,3 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           buildpackage-opts: --build=binary --no-sign
-  release:
-    environment:
-      name: production
-      url: https://github.com/${{ github.repository }}/releases/tag/${{ steps.semantic-release.outputs.release-tag }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: "☁️ checkout repository"
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: "🚀 release"
-        id: semantic-release
-        uses: open-sauced/release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: '♻️ cleanup'
-        run: |
-          echo ${{ steps.semantic-release.outputs.release-tag }}
-          echo ${{ steps.semantic-release.outputs.release-version }}
