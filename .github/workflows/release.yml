@@ -3,7 +3,7 @@
 # https://github.com/marketplace/actions/open-sauced-release
 # The build and attach step:
 # https://github.com/jtdor/build-deb-action
-name: Semantic release
+name: Build and Release Pipeline
 
 on:
   push:
@@ -13,7 +13,19 @@ on:
   workflow_dispatch:
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
+        with:
+          buildpackage-opts: --build=binary --no-sign
+          source-dir: ./releases/wpe2k
+          artifacts-dir: ./releases/wpe2k/debian/artifacts
   release:
+    needs: build
     name: Semantic release
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -34,18 +46,9 @@ jobs:
     outputs:
         release-tag: ${{ steps.semantic-release.outputs.release-tag }}
 
-  build:
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: jtdor/build-deb-action@v1
-        env:
-          DEB_BUILD_OPTIONS: noautodbgsym
-        with:
-          buildpackage-opts: --build=binary --no-sign
-          source-dir: ./releases/wpe2k
-          artifacts-dir: ./releases/wpe2k/debian/artifacts
+      - name: '♻️ Rename release files w/ new version'
+        run: |
+          for file in $(ls | grep wpe2k); do suffix=$(echo $file | cut -d _ -f 3); mv $file wpe2k_${{ env.RELEASE_VERSION }}_$suffix; done
 
       - name: Build and upload release files
         env:
