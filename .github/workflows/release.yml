@@ -42,7 +42,7 @@ jobs:
       - name: Validating Release
         env:
           release-tag: ${{ needs.release.outputs.release-tag }}
-        if: ${{ env.verified-release-tag == '' }}
+        if: ${{ env.release-tag == '' }}
         run: |
             echo "No new release found"
             exit 1
