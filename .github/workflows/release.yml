@@ -46,9 +46,9 @@ jobs:
         env:
           newVer: ${{ env.RELEASE_VERSION }}
         run: |
-              mkdir -p ./releases/wpe2k/debian/artifacts/new
-              cd ./releases/wpe2k/debian/artifacts
-              for file in $(ls | grep wpe2k); do suffix=$(echo $file | cut -d _ -f 3); cp $file ./releases/wpe2k/debian/artifacts/new/wpe2k_$newVer_$suffix; done
+          mkdir -p ./releases/wpe2k/debian/artifacts/new
+          for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k); do suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3); cp ./releases/wpe2k/debian/artifacts/$file ./releases/wpe2k/debian/artifacts/new/wpe2k_$newVer_$suffix; done
+          ls ./releases/wpe2k/debian/artifacts/new/
     outputs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
 
@@ -60,4 +60,5 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
+          ls ./releases/wpe2k/debian/artifacts/new/
           gh release upload ${{ needs.release.outputs.release-tag }} ./releases/wpe2k/debian/artifacts/new/*
