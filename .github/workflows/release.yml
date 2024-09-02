@@ -34,8 +34,26 @@ jobs:
     outputs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
 
-  build:
+  verify-release:
     needs: release
+    name: Generating Release Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validating new release
+        id: release_validation
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          RELEASE_VERSION: ${{ needs.release.outputs.release-tag }}
+        if: ${{ env.RELEASE_VERSION == '' }}
+        run: |
+            echo "No new release found"
+            echo "SKIP_BUILD=TRUE" >> $GITHUB_OUTPUT
+      - name: Pass or fail
+        run: |
+          if [[ ${{ steps.release_validation.outputs.SKIP_BUILD }} == TRUE ]]; then exit 0; else exit 1; fi
+
+  build:
+    needs: verify-release
     name: Generating Release Packages
     runs-on: ubuntu-latest
     steps:
