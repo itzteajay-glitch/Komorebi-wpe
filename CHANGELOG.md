@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.24](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.23...v1.0.24) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* added the same var from the gh release upload into the file name to hopefully pull version into the file name ([06f48ea](https://github.com/itzteajay-glitch/wpe2k/commit/06f48ea67d11e74c5faeb01189b36de11afefdee))
+
 ## [1.0.23](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.22...v1.0.23) (2024-09-02)
 
 
