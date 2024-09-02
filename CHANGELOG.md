@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.38](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.37...v1.0.38) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* removed double >> loading the GITHUB_OUTPUT var. ([afab37f](https://github.com/itzteajay-glitch/wpe2k/commit/afab37f99fd470c16ab37db01061579ff55f0eb7))
+
 ## [1.0.37](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.36...v1.0.37) (2024-09-02)
 
 
