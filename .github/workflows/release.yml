@@ -64,12 +64,13 @@ jobs:
       - name: Rename and push files into release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          RELEASE_VERSION: ${{ needs.release.outputs.release-tag }}
         run: |
             mkdir -p new
             for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k)
               do
                 suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3)
-                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_$(echo ${{ needs.release.outputs.release-tag }})_$suffix
+                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_$RELEASE_VERSION_$suffix
               done
             cd ./new
-            gh release upload ${{ needs.release.outputs.release-tag }} *
+            gh release upload $RELEASE_VERSION *
