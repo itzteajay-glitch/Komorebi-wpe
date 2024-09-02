@@ -1,5 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 # https://github.com/marketplace/actions/build-debian-packages
+# set github settings to allow workflows to write... this may possibly work for allowing writes of artifacts?
 name: Build Debian Packages
 
 on: push
