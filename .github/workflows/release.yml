@@ -46,10 +46,10 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           buildpackage-opts: --build=binary --no-sign
-          source-dir: ./releases/current-0.0.1.a
+          source-dir: ./releases/wpe2k
 
       - name: Build and upload release files
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
-          gh release upload ${{ needs.release.outputs.release-tag }} build/my-go-binary
+          gh release upload ${{ needs.release.outputs.release-tag }} ./releases/wpe2k/debian/artifacts
