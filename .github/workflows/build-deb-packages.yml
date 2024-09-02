@@ -12,5 +12,5 @@ jobs:
       - uses: jtdor/build-deb-action@v1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
-        with:
-          buildpackage-opts: --build=binary --no-sign
+#        with:
+#          buildpackage-opts: --build=binary --no-sign

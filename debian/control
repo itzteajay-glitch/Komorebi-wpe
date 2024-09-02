@@ -1,4 +1,4 @@
-Source: current
+Source: wpe2k
 Section: unknown
 Priority: optional
 Maintainer: TJ Hoth <itzteajay@gmail.com>
@@ -12,5 +12,5 @@ Rules-Requires-Root: no
 Package: current
 Architecture: all
 Depends: ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Description: wpe2k - Wallpaper Engine to Komorebi Migrator
+ This package is designed to work alongside Wallpaper engine and Komorebi to allow linux users to migrate video files from steam workshop to the komorebi application.
