@@ -15,4 +15,3 @@ jobs:
         with:
           buildpackage-opts: --build=binary --no-sign
           source-dir: ./releases/current-0.0.1.a
-          artifacts-dir: ./releases
