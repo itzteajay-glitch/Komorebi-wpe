@@ -1,18 +1,18 @@
-# This is a basic workflow to help you get started with Actions
-# https://github.com/marketplace/actions/build-debian-packages
-# adding comment to check build
-name: Build Debian Packages
-
-on: push
-
-jobs:
-  build-debs:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: jtdor/build-deb-action@v1
-        env:
-          DEB_BUILD_OPTIONS: noautodbgsym
-        with:
-          buildpackage-opts: --build=binary --no-sign
-          source-dir: ./releases/current-0.0.1.a
+## This is a basic workflow to help you get started with Actions
+## https://github.com/marketplace/actions/build-debian-packages
+## adding comment to check build
+#name: Build Debian Packages
+#
+#on: push
+#
+#jobs:
+#  build-debs:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: jtdor/build-deb-action@v1
+#        env:
+#          DEB_BUILD_OPTIONS: noautodbgsym
+#        with:
+#          buildpackage-opts: --build=binary --no-sign
+#          source-dir: ./releases/current-0.0.1.a

@@ -33,24 +33,20 @@ jobs:
         release-tag: ${{ steps.semantic-release.outputs.release-tag }}
 
   build:
-    needs:
-      - release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # release changes require contents write
-
     steps:
-    - name: Set up Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: 1.21
+      - name: Generating release files
+      - uses: actions/checkout@v4
+      - uses: jtdor/build-deb-action@v1
+        env:
+          DEB_BUILD_OPTIONS: noautodbgsym
+        with:
+          buildpackage-opts: --build=binary --no-sign
+          source-dir: ./releases/current-0.0.1.a
 
-    - name: Check out code
-      uses: actions/checkout@v3
-
-    - name: Build and upload Go binaries
-      env:
-        GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-      run: |
-        go build -o build/my-go-binary
-        gh release upload ${{ needs.release.outputs.release-tag }} build/my-go-binary
+      - name: Build and upload Go binaries
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        run: |
+          go build -o build/my-go-binary
+          gh release upload ${{ needs.release.outputs.release-tag }} build/my-go-binary
