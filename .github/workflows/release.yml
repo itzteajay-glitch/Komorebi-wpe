@@ -40,15 +40,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Validating Release
-        id: verified
         env:
           verified-release-tag: ${{ needs.release.outputs.release-tag }}
-        if: ${{ env.RELEASE_VERSION == '' }}
+        if: ${{ env.verified-release-tag == '' }}
         run: |
             echo "No new release found"
+            exit 1
+      - name: Validating Release
+        id: verified-release
+        env:
+          verified-release-tag: ${{ needs.release.outputs.release-tag }}
+        if: ${{ env.verified-release-tag != '' }}
+        run: |
+            echo "New Release Found."
             exit 0
     outputs:
-      release-tag: ${{ steps.verified.outputs.verified-release-tag }}
+      verified-release-tag: ${{ steps.verified-release.outputs.verified-release-tag }}
 
   build:
     needs: verify-release
@@ -67,7 +74,7 @@ jobs:
         id: release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          RELEASE_VERSION: ${{ needs.verify-release.outputs.release-tag }}
+          RELEASE_VERSION: ${{ needs.verify-release.outputs.verified-release-tag }}
         run: |
             mkdir -p new
             for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k)
