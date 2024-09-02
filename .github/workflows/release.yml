@@ -42,7 +42,6 @@ jobs:
       - name: Validating Release
         id: release_validation
         env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           RELEASE_VERSION: ${{ needs.release.outputs.release-tag }}
         if: ${{ env.RELEASE_VERSION == '' }}
         run: |
@@ -63,6 +62,8 @@ jobs:
           source-dir: ./releases/wpe2k
           artifacts-dir: ./releases/wpe2k/debian/artifacts
       - name: Rename and push files into release
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
             mkdir -p new
             for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k)
