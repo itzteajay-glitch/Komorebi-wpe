@@ -5,6 +5,15 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.8](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7...v1.0.8) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Adjusted pipeline ordering for jobs ([8f1f00d](https://github.com/itzteajay-glitch/wpe2k/commit/8f1f00d150fdc6b10edfaedad8b2be5cf92a6dc0))
+* Modified release.yml to rename release files to proper version before adding them to the releas. ([2df044f](https://github.com/itzteajay-glitch/wpe2k/commit/2df044fb64e3be1ce6ddd6f933993ef86ff95aa2))
+* updated install file to point to all scripts. Also added file name manipulation to release.yml in hopes I can get the proper version number in the release files. ([d606ea2](https://github.com/itzteajay-glitch/wpe2k/commit/d606ea28801be3f97532bd58c7a2cc20865c85a1))
+
 ## [1.0.7](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.6...v1.0.7) (2024-09-02)
 
 
