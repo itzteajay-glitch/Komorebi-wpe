@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.7-beta.2](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.1...v1.0.7-beta.2) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* attempting to replicate the changelog from semantic-release into the debian directory ([6a5b82c](https://github.com/itzteajay-glitch/wpe2k/commit/6a5b82c6f2ea0168eb95c81568a0b583bccdcb74))
+
 ## [1.0.7-beta.1](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.6...v1.0.7-beta.1) (2024-09-02)
 
 
