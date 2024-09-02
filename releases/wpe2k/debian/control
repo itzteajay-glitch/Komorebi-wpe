@@ -5,12 +5,14 @@ Maintainer: TJ Hoth <itzteajay@gmail.com>
 Build-Depends: debhelper-compat (= 13)
 Standards-Version: 4.6.0
 Homepage: https://github.com/itzteajay-glitch/wpe2k
-#Vcs-Browser: https://salsa.debian.org/debian/current
-#Vcs-Git: https://salsa.debian.org/debian/current.git
+#Vcs-Browser: https://salsa.debian.org/debian/wpe2k
+#Vcs-Git: https://salsa.debian.org/debian/wpe2k.git
 Rules-Requires-Root: no
 
 Package: wpe2k
 Architecture: all
 Depends: ${misc:Depends}
-Description: Allows users to migrate video wallpaper from wallpaper engine into Komorebi
-  Additional details here at a later time.
+Description: Migrate video wallpaper from Wallpaper Engine to Komorebi
+  This package allows you to quickly and easily migrate live wallpapers from Wallpaper Engine into Komorebi for use on gnome based systems.
+
+  It also sets up a service that will monitor your desktop for any full screen windows and will stop komorebi if it finds there are. This allows you to save precious system resouces when you're not enjoying your desktop.
