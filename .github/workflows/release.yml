@@ -35,7 +35,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Generating release files
       - uses: actions/checkout@v4
       - uses: jtdor/build-deb-action@v1
         env:
