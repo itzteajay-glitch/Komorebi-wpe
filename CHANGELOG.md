@@ -5,6 +5,18 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.20](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.19...v1.0.20) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* attempting to fix syntaxing issue ([73331ba](https://github.com/itzteajay-glitch/wpe2k/commit/73331ba0429eac0882cdf92ee3af42fe5eaa3c79))
+* checking indentation issue ([7d991e1](https://github.com/itzteajay-glitch/wpe2k/commit/7d991e15d086306d992319a9f342d35b8479e39f))
+* downloaded files from the proper job this time. ([af6ff70](https://github.com/itzteajay-glitch/wpe2k/commit/af6ff7013f3f83dacfdf933bb7dd298181d1361c))
+* syntaxing issue in release.yml ([9910bad](https://github.com/itzteajay-glitch/wpe2k/commit/9910bad0ab1835fdce0731773723a3f0c56f47a8))
+* testing build out ([6795fa6](https://github.com/itzteajay-glitch/wpe2k/commit/6795fa6af7bd1f910a1eb0ab5acbf85570d3bf01))
+* testing syntaxing problem ([9827f37](https://github.com/itzteajay-glitch/wpe2k/commit/9827f37946f82537711707a5c4083dca9d4a2566))
+
 ## [1.0.19](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.18...v1.0.19) (2024-09-02)
 
 
