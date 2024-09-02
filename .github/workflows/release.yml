@@ -1,4 +1,5 @@
 # https://github.com/marketplace/actions/open-sauced-release
+# Secret is set up as a repo secret
 name: Semantic release
 
 on:
