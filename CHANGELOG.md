@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.7-beta.7](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.6...v1.0.7-beta.7) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Created placeholder for changelog in debian directory and updated the release.yml fild ([d6c879f](https://github.com/itzteajay-glitch/wpe2k/commit/d6c879f48372e99e1698636ba120a290a932ff19))
+
 ## [1.0.7-beta.6](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.5...v1.0.7-beta.6) (2024-09-02)
 
 
