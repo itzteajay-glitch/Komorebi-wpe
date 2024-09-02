@@ -24,7 +24,7 @@ jobs:
       - name: "🚀 release"
         id: semantic-release
         env:
-          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           SKIP_NPM_PUBLISH: true
           SKIP_DOCKER_PUBLISH: true
         uses: open-sauced/release@v2

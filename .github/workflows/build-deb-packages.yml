@@ -15,3 +15,4 @@ jobs:
           DEB_BUILD_OPTIONS: noautodbgsym
         with:
           buildpackage-opts: --build=binary --no-sign
+          source-dir: ./wpe2k-0.0.1
