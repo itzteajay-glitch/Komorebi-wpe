@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.37](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.36...v1.0.37) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* made adjustments to the if statements and their namings to make it more obvious where build failed. ([dd7ce0e](https://github.com/itzteajay-glitch/wpe2k/commit/dd7ce0e5d23775eb4851d1f46b7c4470668a19da))
+
 ## [1.0.36](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.35...v1.0.36) (2024-09-02)
 
 
