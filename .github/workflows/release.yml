@@ -74,13 +74,14 @@ jobs:
         id: release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          RELEASE_VERSION: ${{ needs.verify-release.outputs.verified-release-tag }}
+          final-release: ${{ needs.verify-release.outputs.verified-release-tag }}
         run: |
+            echo ${{ env.final-release }}
             mkdir -p new
             for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k)
               do
                 suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3)
-                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_${{ env.RELEASE_VERSION }}_$suffix
+                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_$(echo ${{ env.final-release }})_$suffix
               done
             cd ./new
-            gh release upload ${{ env.RELEASE_VERSION }} *
+            gh release upload $(echo ${{ env.final-release }}) *
