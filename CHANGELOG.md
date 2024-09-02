@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.7-beta.5](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.4...v1.0.7-beta.5) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* seeing what I can do with sh inside of the release.yml ([6ebbb5b](https://github.com/itzteajay-glitch/wpe2k/commit/6ebbb5bef390af951f45c28906f74236d85f33b9))
+
 ## [1.0.7-beta.4](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.3...v1.0.7-beta.4) (2024-09-02)
 
 
