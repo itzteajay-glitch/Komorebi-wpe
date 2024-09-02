@@ -38,18 +38,16 @@ jobs:
     needs: release
     name: Verify Release
     runs-on: ubuntu-latest
-    steps:
-      - name: Validating Release
-        env:
+    env:
           release-tag: ${{ needs.release.outputs.release-tag }}
+    steps:
+      - name: Checking for new release Release
         if: ${{ env.release-tag == '' }}
         run: |
             echo "No new release found"
             exit 1
-      - name: Validating Release
+      - name: Storing release data
         id: verified-release
-        env:
-          release-tag: ${{ needs.release.outputs.release-tag }}
         if: ${{ env.release-tag != '' }}
         run: |
             echo "New Release Found."
