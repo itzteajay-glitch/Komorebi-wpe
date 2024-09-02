@@ -5,6 +5,14 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.12](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.11...v1.0.12) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Corrected syntax error in release.yml ([4b6c711](https://github.com/itzteajay-glitch/wpe2k/commit/4b6c711cbeccc7fdd1c5f7aa95efbb6ed4c4940a))
+* fixed the mkdir command and also simplified job names ([dd47304](https://github.com/itzteajay-glitch/wpe2k/commit/dd47304d346183905883934d916b37717c188c59))
+
 ## [1.0.11](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.10...v1.0.11) (2024-09-02)
 
 
