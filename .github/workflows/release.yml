@@ -56,7 +56,7 @@ jobs:
               do
                 echo "original file: ./releases/wpe2k/debian/artifacts/$file"
                 suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3)
-                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_${{ needs.release.outputs.release-tag }}_$suffix
+                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_$(echo ${{ needs.release.outputs.release-tag }})_$suffix
               done
             ls
             cd ./new
