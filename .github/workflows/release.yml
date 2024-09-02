@@ -47,8 +47,15 @@ jobs:
           newVer: ${{ env.RELEASE_VERSION }}
         run: |
           mkdir -p ./releases/wpe2k/debian/artifacts/new
-          for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k); do suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3); cp ./releases/wpe2k/debian/artifacts/$file ./releases/wpe2k/debian/artifacts/new/wpe2k_$newVer_$suffix; done
-          ls ./releases/wpe2k/debian/artifacts/new/
+          for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k)
+            do
+              echo $file
+              suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3)
+              echo $suffix
+              cp ./releases/wpe2k/debian/artifacts/$file ./releases/wpe2k/debian/artifacts/new/wpe2k_$newVer_$suffix
+            done
+            cd ./releases/wpe2k/debian/artifacts/new/
+            ls
       - name: Preserving release files for distrobution
         uses: actions/upload-artifact@v4
         with:
