@@ -50,6 +50,7 @@ jobs:
       - name: Attaching the package files to release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+          RELEASE_VERSION: ${{ needs.release.outputs.release-tag }}
         run: |
             mkdir -p new
             for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k)
