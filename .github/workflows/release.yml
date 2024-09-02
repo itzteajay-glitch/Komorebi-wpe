@@ -46,7 +46,7 @@ jobs:
         env:
           newVer: ${{ env.RELEASE_VERSION }}
         run: |
-              mkdir -r ./releases/wpe2k/debian/artifacts/new
+              mkdir -p ./releases/wpe2k/debian/artifacts/new
               cd ./releases/wpe2k/debian/artifacts
               for file in $(ls | grep wpe2k); do suffix=$(echo $file | cut -d _ -f 3); cp $file ./releases/wpe2k/debian/artifacts/new/wpe2k_$newVer_$suffix; done
     outputs:
