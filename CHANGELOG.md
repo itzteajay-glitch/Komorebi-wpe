@@ -5,6 +5,14 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.26](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.25...v1.0.26) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Added checks to see if new version was created. ([83cbb7d](https://github.com/itzteajay-glitch/wpe2k/commit/83cbb7dc5948b3bc3e8adcc4ff11c2e2a5e2ac55))
+* made changes to check if new version is available. Also slimmed down debugging since I've had some success. ([49eaedf](https://github.com/itzteajay-glitch/wpe2k/commit/49eaedf833f0991519000c606c04ed0019b0b65e))
+
 ## [1.0.25](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.24...v1.0.25) (2024-09-02)
 
 
