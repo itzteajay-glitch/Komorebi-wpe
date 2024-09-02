@@ -33,9 +33,9 @@ jobs:
           SKIP_DOCKER_PUBLISH: true
         uses: open-sauced/release@v2
 
-      - name: "🚀 export CHANGELOG.md"
+      - name: "🥡 updating debian package info"
         run: |
-          sh -c cp CHANGELOG.md releases/wpe2k/debian/changelog
+          sh -c ls #; cp CHANGELOG.md releases/wpe2k/debian/changelog
 
     outputs:
         release-tag: ${{ steps.semantic-release.outputs.release-tag }}
