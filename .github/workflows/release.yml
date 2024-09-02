@@ -50,7 +50,7 @@ jobs:
 
     - name: Build and upload Go binaries
       env:
-        GH_TOKEN: ${{ RELEASE_TOKEN }}
+        GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
       run: |
         go build -o build/my-go-binary
         gh release upload ${{ needs.release.outputs.release-tag }} build/my-go-binary
