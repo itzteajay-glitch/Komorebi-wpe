@@ -15,7 +15,6 @@ on:
 
 jobs:
   release:
-    needs: build
     name: Generating Semantic Release
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -36,6 +35,7 @@ jobs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
 
   build:
+    needs: release
     name: Generating Release Packages
     runs-on: ubuntu-latest
     steps:
