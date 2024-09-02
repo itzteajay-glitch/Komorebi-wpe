@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.7-beta.3](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.2...v1.0.7-beta.3) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* changing mv to cp to see if that works. ([00d8e4c](https://github.com/itzteajay-glitch/wpe2k/commit/00d8e4c42afd346b550951494309d1203ef5f330))
+
 ## [1.0.7-beta.2](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.1...v1.0.7-beta.2) (2024-09-02)
 
 
