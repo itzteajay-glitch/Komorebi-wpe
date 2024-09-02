@@ -35,7 +35,7 @@ jobs:
 
       - name: "🚀 export CHANGELOG.md"
         run: |
-          sh -c cp ./CHANGELOG.md ./releases/wpe2k/debian/changelog
+          sh -c cp CHANGELOG.md releases/wpe2k/debian/changelog
 
     outputs:
         release-tag: ${{ steps.semantic-release.outputs.release-tag }}
