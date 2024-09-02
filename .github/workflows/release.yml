@@ -1,4 +1,5 @@
-
+# Including this here for future suffereing
+# https://rhysd.github.io/actionlint/
 # The Release Step:
 # https://github.com/marketplace/actions/open-sauced-release
 # The build and attach step:
@@ -48,9 +49,8 @@ jobs:
           SKIP_NPM_PUBLISH: true
           SKIP_DOCKER_PUBLISH: true
         uses: open-sauced/release@v2
-      - name: '♻️ Rename release files w new version'
-        env:
-          newVer: ${{ env.RELEASE_VERSION }}
+    outputs:
+      release-tag: ${{ steps.semantic-release.outputs.release-tag }}
 
   publish:
     needs: release
@@ -64,7 +64,7 @@ jobs:
       - name: Attaching the package files to release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          run: |
+        run: |
             mkdir -p new
             for file in $(ls | grep wpe2k)
               do
@@ -74,6 +74,3 @@ jobs:
                 cp $file new/wpe2k_$newVer_$suffix
               done
             gh release upload ${{ needs.release.outputs.release-tag }} *
-
-    outputs:
-      release-tag: ${{ steps.semantic-release.outputs.release-tag }}
