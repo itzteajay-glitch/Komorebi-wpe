@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.31](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.30...v1.0.31) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* adjusted syntaxing to account for the way variables are called in the new structure. ([b2f2dcd](https://github.com/itzteajay-glitch/wpe2k/commit/b2f2dcd7f65348adb9605debe1c8a8f55c135e2c))
+
 ## [1.0.30](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.29...v1.0.30) (2024-09-02)
 
 
