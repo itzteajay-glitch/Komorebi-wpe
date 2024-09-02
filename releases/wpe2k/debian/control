@@ -14,5 +14,4 @@ Architecture: all
 Depends: ${misc:Depends}
 Description: Migrate video wallpaper from Wallpaper Engine to Komorebi
   This package allows you to quickly and easily migrate live wallpapers from Wallpaper Engine into Komorebi for use on gnome based systems.
-
   It also sets up a service that will monitor your desktop for any full screen windows and will stop komorebi if it finds there are. This allows you to save precious system resouces when you're not enjoying your desktop.

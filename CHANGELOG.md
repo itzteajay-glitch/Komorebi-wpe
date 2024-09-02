@@ -5,6 +5,86 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.7-beta.11](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.10...v1.0.7-beta.11) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* adjusted the system file generated fo the install script to work properly after deb install. ([c9cc40a](https://github.com/itzteajay-glitch/wpe2k/commit/c9cc40a899cf1bf696bec6bedaaa5d46c977ac4b))
+
+## [1.0.7-beta.10](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.9...v1.0.7-beta.10) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* First official beta release with working deb package. ([4f807a0](https://github.com/itzteajay-glitch/wpe2k/commit/4f807a0bf382c615e3c24186490bffe7ec51c374))
+
+## [1.0.7-beta.9](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.8...v1.0.7-beta.9) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Initial beta release with installable deb package. ([883c164](https://github.com/itzteajay-glitch/wpe2k/commit/883c164f5c22ed016c9cf934258fe0af899b1f2b))
+
+## [1.0.7-beta.8](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.7...v1.0.7-beta.8) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Initial beta release with installable deb package. ([f99e1d7](https://github.com/itzteajay-glitch/wpe2k/commit/f99e1d7fb205bc38e00d24b9773a64c7985cba28))
+
+## [1.0.7-beta.7](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.6...v1.0.7-beta.7) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Created placeholder for changelog in debian directory and updated the release.yml fild ([d6c879f](https://github.com/itzteajay-glitch/wpe2k/commit/d6c879f48372e99e1698636ba120a290a932ff19))
+
+## [1.0.7-beta.6](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.5...v1.0.7-beta.6) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* created placeholder changelog and updated release.yml ([2c87122](https://github.com/itzteajay-glitch/wpe2k/commit/2c87122e42e0d5dd3214aabb1364c1ef57ac7e4f))
+
+## [1.0.7-beta.5](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.4...v1.0.7-beta.5) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* seeing what I can do with sh inside of the release.yml ([6ebbb5b](https://github.com/itzteajay-glitch/wpe2k/commit/6ebbb5bef390af951f45c28906f74236d85f33b9))
+
+## [1.0.7-beta.4](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.3...v1.0.7-beta.4) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Attempting to migrate the change log during the build. ([1430a70](https://github.com/itzteajay-glitch/wpe2k/commit/1430a706d796499f39872c132b766ddd7ae30505))
+
+## [1.0.7-beta.3](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.2...v1.0.7-beta.3) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* changing mv to cp to see if that works. ([00d8e4c](https://github.com/itzteajay-glitch/wpe2k/commit/00d8e4c42afd346b550951494309d1203ef5f330))
+
+## [1.0.7-beta.2](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.1...v1.0.7-beta.2) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* attempting to replicate the changelog from semantic-release into the debian directory ([6a5b82c](https://github.com/itzteajay-glitch/wpe2k/commit/6a5b82c6f2ea0168eb95c81568a0b583bccdcb74))
+
+## [1.0.7-beta.1](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.6...v1.0.7-beta.1) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* added install file to deb directory. Also prepped to set up alpha and beta branches for pre-release releases. ([e9fdf7d](https://github.com/itzteajay-glitch/wpe2k/commit/e9fdf7d45643104df09998e6fd91c362cd6c09ee))
+* Set up repo with a beta branch wich should allow me to push pre-release releases. ([53287fa](https://github.com/itzteajay-glitch/wpe2k/commit/53287faf08695697cffedc1920982079dd09b9ba))
+* testing release set up for beta branch. This should flag the release as a pre-release. ([b75937c](https://github.com/itzteajay-glitch/wpe2k/commit/b75937cc0236a843831f397ff1f3b2352355106b))
+* testing to see if the syntax of on will work for multiple methods depending on branch. ([aabba1e](https://github.com/itzteajay-glitch/wpe2k/commit/aabba1efd19d543e8eae69cf0f805b3ed7cad4fb))
+
 ## [1.0.6](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.5...v1.0.6) (2024-09-02)
 
 
