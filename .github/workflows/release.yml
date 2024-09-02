@@ -36,7 +36,7 @@ jobs:
 
   verify-release:
     needs: release
-    name: Generating Release Packages
+    name: Check if new release was needed for this run
     runs-on: ubuntu-latest
     steps:
       - name: Validating new release
