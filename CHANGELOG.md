@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.4](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.3...v1.0.4) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* fixed paths in release.yml to hopefully populate the build files into the release. ([9624e14](https://github.com/itzteajay-glitch/wpe2k/commit/9624e14abe1ddb030764986bdce7078ae3b910bd))
+
 ## [1.0.3](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.2...v1.0.3) (2024-09-02)
 
 
