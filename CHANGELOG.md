@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.30](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.29...v1.0.30) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* moved env variable into final build ([29496e7](https://github.com/itzteajay-glitch/wpe2k/commit/29496e742c8fb621f6a60d49e3400d61c748f0bc))
+
 ## [1.0.29](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.28...v1.0.29) (2024-09-02)
 
 
