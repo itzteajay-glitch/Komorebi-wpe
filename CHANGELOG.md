@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.28](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.27...v1.0.28) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* adjusted the verification to exit 0 if no new version available. ([9cb5848](https://github.com/itzteajay-glitch/wpe2k/commit/9cb5848eae8b6f82475fdee61a1af4fc96367464))
+
 ## [1.0.27](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.26...v1.0.27) (2024-09-02)
 
 
