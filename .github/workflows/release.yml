@@ -49,6 +49,11 @@ jobs:
           mkdir -p ./releases/wpe2k/debian/artifacts/new
           for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k); do suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3); cp ./releases/wpe2k/debian/artifacts/$file ./releases/wpe2k/debian/artifacts/new/wpe2k_$newVer_$suffix; done
           ls ./releases/wpe2k/debian/artifacts/new/
+      - name: Preserving release files for distrobution
+        uses: actions/upload-artifact@v4
+        with:
+          name: releaseFiles
+          path: ./releases/wpe2k/debian/artifacts/new/*
     outputs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
       
@@ -57,6 +62,10 @@ jobs:
     name: Publishing files
     runs-on: ubuntu-latest
     steps:
+      - name: Fetching release files for release
+        uses: actions/download-artifact@v4
+        with:
+          name: releaseFiles
       - name: Attaching the package files to release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
