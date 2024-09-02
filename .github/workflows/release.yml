@@ -49,16 +49,11 @@ jobs:
           mkdir -p ./releases/wpe2k/debian/artifacts/new
           for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k); do suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3); cp ./releases/wpe2k/debian/artifacts/$file ./releases/wpe2k/debian/artifacts/new/wpe2k_$newVer_$suffix; done
           ls ./releases/wpe2k/debian/artifacts/new/
-    outputs:
-      release-tag: ${{ steps.semantic-release.outputs.release-tag }}
-
-  publish:
-    needs: release
-    runs-on: ubuntu-latest
-    steps:
       - name: Publishing release files
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
           ls ./releases/wpe2k/debian/artifacts/new/
           gh release upload ${{ needs.release.outputs.release-tag }} ./releases/wpe2k/debian/artifacts/new/*
+    outputs:
+      release-tag: ${{ steps.semantic-release.outputs.release-tag }}
