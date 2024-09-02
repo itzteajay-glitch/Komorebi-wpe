@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.7-beta.9](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.8...v1.0.7-beta.9) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* Initial beta release with installable deb package. ([883c164](https://github.com/itzteajay-glitch/wpe2k/commit/883c164f5c22ed016c9cf934258fe0af899b1f2b))
+
 ## [1.0.7-beta.8](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.7...v1.0.7-beta.8) (2024-09-02)
 
 
