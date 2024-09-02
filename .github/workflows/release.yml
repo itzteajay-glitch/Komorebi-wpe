@@ -46,9 +46,11 @@ jobs:
           artifacts-dir: ./releases/wpe2k/debian/artifacts
 
       - name: '♻️ Rename release files w new version'
+        env:
+          newVer: ${{ env.RELEASE_VERSION }}
         run: |
               cd ./releases/wpe2k/debian/artifacts
-              for file in $(ls | grep wpe2k); do suffix=$(echo $file | cut -d _ -f 3); mv $file wpe2k_${{ env.RELEASE_VERSION }}_$suffix; done
+              for file in $(ls | grep wpe2k); do suffix=$(echo $file | cut -d _ -f 3); sudo mv $file wpe2k_$newVer_$suffix; done
 
       - name: Build and upload release files
         env:
