@@ -5,6 +5,16 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.7-beta.1](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.6...v1.0.7-beta.1) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* added install file to deb directory. Also prepped to set up alpha and beta branches for pre-release releases. ([e9fdf7d](https://github.com/itzteajay-glitch/wpe2k/commit/e9fdf7d45643104df09998e6fd91c362cd6c09ee))
+* Set up repo with a beta branch wich should allow me to push pre-release releases. ([53287fa](https://github.com/itzteajay-glitch/wpe2k/commit/53287faf08695697cffedc1920982079dd09b9ba))
+* testing release set up for beta branch. This should flag the release as a pre-release. ([b75937c](https://github.com/itzteajay-glitch/wpe2k/commit/b75937cc0236a843831f397ff1f3b2352355106b))
+* testing to see if the syntax of on will work for multiple methods depending on branch. ([aabba1e](https://github.com/itzteajay-glitch/wpe2k/commit/aabba1efd19d543e8eae69cf0f805b3ed7cad4fb))
+
 ## [1.0.6](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.5...v1.0.6) (2024-09-02)
 
 
