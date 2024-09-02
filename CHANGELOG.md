@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.2](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.1...v1.0.2) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* This should result in a deb file being produced in the release. ([6b5a091](https://github.com/itzteajay-glitch/wpe2k/commit/6b5a091e804ae92d7e489f8565b3861c93403eb4))
+
 ## [1.0.1](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.0...v1.0.1) (2024-09-02)
 
 
