@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.15](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.14...v1.0.15) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* testing build structure since it seems like the directory was not surviving between jobs ([b59b08b](https://github.com/itzteajay-glitch/wpe2k/commit/b59b08b198ed725dba1a33cb28dd1a6ccb864ec0))
+
 ## [1.0.14](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.13...v1.0.14) (2024-09-02)
 
 
