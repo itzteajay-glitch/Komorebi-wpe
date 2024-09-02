@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.33](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.32...v1.0.33) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* debugging release pipeline. Focus currently on exporting version into release files ([8b2e06a](https://github.com/itzteajay-glitch/wpe2k/commit/8b2e06abfe63ff1c177dfab485b478ba70fffd95))
+
 ## [1.0.32](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.31...v1.0.32) (2024-09-02)
 
 
