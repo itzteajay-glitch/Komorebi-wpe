@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.9](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.8...v1.0.9) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* added proper pathing before forloop to ensure the files are looped through properly while getting renamed. ([78bcc4d](https://github.com/itzteajay-glitch/wpe2k/commit/78bcc4d62f1f3f7a4117efe40ad8d4af9d4d24c2))
+
 ## [1.0.8](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7...v1.0.8) (2024-09-02)
 
 
