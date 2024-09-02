@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.32](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.31...v1.0.32) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* leveraging outputs to fill env variables in different jobs ([c3821bf](https://github.com/itzteajay-glitch/wpe2k/commit/c3821bf536bea4b8b03773484acf26aac25fde4e))
+
 ## [1.0.31](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.30...v1.0.31) (2024-09-02)
 
 
