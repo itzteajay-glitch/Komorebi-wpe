@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.35](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.34...v1.0.35) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* debugging passing of variables from job to job in github actions ([8810522](https://github.com/itzteajay-glitch/wpe2k/commit/881052283cdacb1b950051644398b16589cdb43e))
+
 ## [1.0.34](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.33...v1.0.34) (2024-09-02)
 
 
