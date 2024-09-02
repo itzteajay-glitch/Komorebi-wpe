@@ -2,7 +2,14 @@
 # https://github.com/marketplace/actions/build-debian-packages
 name: Package and Release Pipeline
 
-on: push
+on:
+  push:
+    branches:
+      - main
+      - next
+      - next-major
+      - alpha
+      - beta
 
 jobs:
   build-debs:
