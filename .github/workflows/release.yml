@@ -15,7 +15,7 @@ on:
 
 jobs:
   release:
-    name: Generating Semantic Release
+    name: Generating Release
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -36,10 +36,10 @@ jobs:
 
   verify-release:
     needs: release
-    name: Check if new release was needed for this run
+    name: Verify Release
     runs-on: ubuntu-latest
     steps:
-      - name: Validating new release
+      - name: Validating Release
         id: release_validation
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
@@ -47,28 +47,13 @@ jobs:
         if: ${{ env.RELEASE_VERSION == '' }}
         run: |
             echo "No new release found"
-            echo "SKIP_BUILD=TRUE" >> $GITHUB_OUTPUT
-      - name: Pass or fail
-        run: |
-          if [[ ${{ steps.release_validation.outputs.SKIP_BUILD }} == TRUE ]]; then exit 0; else exit 1; fi
+            exit 0
 
   build:
     needs: verify-release
-    name: Generating Release Packages
+    name: Build Packages and Release
     runs-on: ubuntu-latest
     steps:
-      - name: Validating new release
-        id: release_validation
-        env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          RELEASE_VERSION: ${{ needs.release.outputs.release-tag }}
-        if: ${{ env.RELEASE_VERSION == '' }}
-        run: |
-            echo "No new release found"
-            echo "SKIP_BUILD=TRUE" >> $GITHUB_OUTPUT
-      - name: Pass or fail
-        run: |
-          if [[ ${{ steps.release_validation.outputs.SKIP_BUILD }} == TRUE ]]; then exit 0; else exit 1; fi
       - uses: actions/checkout@v4
       - uses: jtdor/build-deb-action@v1
         env:
