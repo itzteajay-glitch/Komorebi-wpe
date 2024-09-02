@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.7-beta.11](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.10...v1.0.7-beta.11) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* adjusted the system file generated fo the install script to work properly after deb install. ([c9cc40a](https://github.com/itzteajay-glitch/wpe2k/commit/c9cc40a899cf1bf696bec6bedaaa5d46c977ac4b))
+
 ## [1.0.7-beta.10](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.7-beta.9...v1.0.7-beta.10) (2024-09-02)
 
 
