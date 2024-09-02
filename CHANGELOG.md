@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.17](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.16...v1.0.17) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* used actions/upload and download to perserve the new release files between jobs. ([cf319ff](https://github.com/itzteajay-glitch/wpe2k/commit/cf319ff583c25f7ece7c141300f51e43153413d0))
+
 ## [1.0.16](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.15...v1.0.16) (2024-09-02)
 
 
