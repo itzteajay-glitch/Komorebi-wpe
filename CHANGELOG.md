@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.36](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.35...v1.0.36) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* syntax issue in one of the if statements. ([f9d2426](https://github.com/itzteajay-glitch/wpe2k/commit/f9d2426bf6faf111e8b5e02f926c0afed7c0568b))
+
 ## [1.0.35](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.34...v1.0.35) (2024-09-02)
 
 
