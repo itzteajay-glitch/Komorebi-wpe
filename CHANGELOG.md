@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.18](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.17...v1.0.18) (2024-09-02)
+
+
+### 🐛 Bug Fixes
+
+* included even more debugging to understand why files aren't being created. ([c3b6a04](https://github.com/itzteajay-glitch/wpe2k/commit/c3b6a04f91c2c95b2e84ce2d3c9fb091ef635634))
+
 ## [1.0.17](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.16...v1.0.17) (2024-09-02)
 
 
