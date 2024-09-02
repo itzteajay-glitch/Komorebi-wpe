@@ -51,7 +51,7 @@ jobs:
         if: ${{ env.release-tag != '' }}
         run: |
             echo "New Release Found."
-            echo verified-release-tag=${{ env.release-tag }} >> >> $GITHUB_OUTPUT
+            echo verified-release-tag=${{ env.release-tag }} >> $GITHUB_OUTPUT
             exit 0
     outputs:
       verified-release-tag: ${{ steps.verified-release.outputs.verified-release-tag }}
