@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.50](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.49...v1.0.50) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* slimmed down unneeded fields from the release and simplified passing variables. ([920c6da](https://github.com/itzteajay-glitch/wpe2k/commit/920c6da64c33de4ad29c447da77490ee9ff6c666))
+
 ## [1.0.49](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.48...v1.0.49) (2024-09-03)
 
 
