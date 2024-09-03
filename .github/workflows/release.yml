@@ -43,8 +43,8 @@ jobs:
           echo release-body=$(gh release view --json body | cut -d : -f 2-1000 | tr -d '{}') >> $GITHUB_OUTPUT
     outputs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
-      release-version: ${{ steps.release.outputs.releaseVersion }}
-      release-body: ${{ steps.release-content.outputs.releaseBody }}
+      release-version: ${{ steps.release.outputs.release-version }}
+      release-body: ${{ steps.release-content.outputs.release-body }}
 
   verify-release:
     env:
