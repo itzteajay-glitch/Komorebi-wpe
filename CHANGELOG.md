@@ -5,6 +5,17 @@
 
 > All notable changes to this project will be documented in this file
 
+## [2.0.0](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.54...v2.0.0) (2024-09-03)
+
+
+### ⚠ BREAKING CHANGES
+
+* This fundementally breaks the old service. If y ou have a version used before this you will need to completely re-install.
+
+### 🔥 Performance Improvements
+
+* changed systemd service to leverage --user instead of the system. This allows the service to monitor the windows of the desktop in order to know what's set to full screen. ([e0d1235](https://github.com/itzteajay-glitch/wpe2k/commit/e0d1235d44fb0273b01f713201acf89f14edae5b))
+
 ## [1.0.54](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.53...v1.0.54) (2024-09-03)
 
 
