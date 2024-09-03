@@ -39,13 +39,12 @@ jobs:
       - name: Prep env variables to pass
         id: release
         run: |
-          echo release-tag=$(echo ${{ env.release-tag }}) >> $GITHUB_OUTPUT
           echo release-version=$(echo ${{ env.RELEASE_VERSION }}) >> $GITHUB_OUTPUT
           echo release-name=$(gh release view --json name $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
           echo release-author=$(gh release view --json author $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
           echo release-body=$(gh release view --json body $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
     outputs:
-      release-tag: ${{ steps.release.outputs.release-tag }}
+      release-tag: ${{ steps.semantic-release.outputs.release-tag }}
       release-version: ${{ steps.release.outputs.releaseVersion }}
       release-name: ${{ steps.release-content.outputs.releaseName }}
       release-author: ${{ steps.release-content.outputs.releaseAuthor }}
