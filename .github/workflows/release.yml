@@ -35,8 +35,8 @@ jobs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
 
   verify-release:
-    needs: release
     name: Verify Release
+    needs: release
     runs-on: ubuntu-latest
     env:
           release-tag: ${{ needs.release.outputs.release-tag }}
@@ -51,14 +51,14 @@ jobs:
         if: ${{ env.release-tag != '' }}
         run: |
             echo "New Release Found."
-            echo verified-release-tag=${{ env.release-tag }} >> $GITHUB_OUTPUT
+            echo release-tag=${{ env.release-tag }} >> $GITHUB_OUTPUT
             exit 0
     outputs:
-      verified-release-tag: ${{ steps.verified-release.outputs.verified-release-tag }}
+      release-tag: ${{ steps.verified-release.outputs.release-tag }}
 
   build:
-    needs: verify-release
     name: Build Packages and Release
+    needs: verify-release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -73,14 +73,36 @@ jobs:
         id: release
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          final-release: ${{ needs.verify-release.outputs.verified-release-tag }}
+          release-tag: ${{ needs.verify-release.outputs.release-tag }}
         run: |
             echo ${{ env.final-release }}
             mkdir -p new
             for file in $(ls ./releases/wpe2k/debian/artifacts | grep wpe2k)
               do
                 suffix=$(echo ./releases/wpe2k/debian/artifacts/$file | cut -d _ -f 3)
-                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_$(echo ${{ env.final-release }})_$suffix
+                cp ./releases/wpe2k/debian/artifacts/$file ./new/wpe2k_$(echo ${{ env.release-tag }})_$suffix
               done
             cd ./new
             gh release upload $(echo ${{ env.final-release }}) *
+            echo final-release-tag=${{ env.final-release }} >> $GITHUB_OUTPUT
+    outputs:
+      verified-release-tag: ${{ steps.release.outputs.final-release-tag }}
+
+  update-deb-changelog:
+    name: Update Debian Changelog
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      # Other steps that change files in the repository go here
+      # …
+
+      # Commit all changed files back to the repository
+      - uses: stefanzweifel/git-auto-commit-action@v5
