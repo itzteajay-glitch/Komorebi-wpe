@@ -36,19 +36,20 @@ jobs:
           SKIP_DOCKER_PUBLISH: true
         uses: open-sauced/release@v2
 
-      - name: "Update debian changelog"
-        id: semantic-release-content
+      - name: Prep env variables to pass
+        id: release
         run: |
-          echo releaseVersion=$(echo ${{ env.RELEASE_VERSION }}) >> $GITHUB_OUTPUT
-          echo releaseName=$(gh release view --json name $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
-          echo releaseAuthor=$(gh release view --json author $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
-          echo releaseBody=$(gh release view --json body $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
+          echo release-tag=$(echo ${{ env.release-tag }}) >> $GITHUB_OUTPUT
+          echo release-version=$(echo ${{ env.RELEASE_VERSION }}) >> $GITHUB_OUTPUT
+          echo release-name=$(gh release view --json name $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
+          echo release-author=$(gh release view --json author $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
+          echo release-body=$(gh release view --json body $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
     outputs:
-      release-tag: ${{ steps.semantic-release.outputs.release-tag }}
-      release-version: ${{ steps.semantic-release.outputs.releaseVersion }}
-      release-name: ${{ steps.semantic-release-content.outputs.releaseName }}
-      release-author: ${{ steps.semantic-release-content.outputs.releaseAuthor }}
-      release-body: ${{ steps.semantic-release-content.outputs.releaseBody }}
+      release-tag: ${{ steps.release.outputs.release-tag }}
+      release-version: ${{ steps.release.outputs.releaseVersion }}
+      release-name: ${{ steps.release-content.outputs.releaseName }}
+      release-author: ${{ steps.release-content.outputs.releaseAuthor }}
+      release-body: ${{ steps.release-content.outputs.releaseBody }}
 
   verify-release:
     env:
@@ -61,37 +62,50 @@ jobs:
     needs: release
     runs-on: ubuntu-latest
     steps:
+      - name: Prep env variables to pass
+        id: release
+        run: |
+            echo release-tag=${{ env.release-tag }} >> $GITHUB_OUTPUT
+            echo release-version=${{ env.release-version }} >> $GITHUB_OUTPUT
+            echo release-name=${{ env.release-name }} >> $GITHUB_OUTPUT
+            echo release-author=${{ env.release-author }} >> $GITHUB_OUTPUT
+            echo release-body=${{ env.release-body }} >> $GITHUB_OUTPUT
       - name: Checking for new release Release
         if: ${{ env.release-tag == '' }}
         run: |
             echo "No new release found"
             exit 1
       - name: Storing release data
-        id: verified-release
         if: ${{ env.release-tag != '' }}
         run: |
             echo "New Release Found."
-            echo release-tag=${{ env.release-tag }} >> $GITHUB_OUTPUT
-            echo release-version=${{ env.release-version }} >> $GITHUB_OUTPUT
             exit 0
     outputs:
-      release-tag: ${{ steps.verified-release.outputs.release-tag }}
-      release-version: ${{ steps.verified-release.outputs.release-version }}
-      release-name: ${{ steps.verified-release.outputs.releaseName }}
-      release-author: ${{ steps.verified-release.outputs.releaseAuthor }}
-      release-body: ${{ steps.verified-release.outputs.releaseBody }}
+      release-tag: ${{ steps.release.outputs.release-tag }}
+      release-version: ${{ steps.release.outputs.releaseVersion }}
+      release-name: ${{ steps.release-content.outputs.releaseName }}
+      release-author: ${{ steps.release-content.outputs.releaseAuthor }}
+      release-body: ${{ steps.release-content.outputs.releaseBody }}
 
   build:
     env:
-      release-tag: ${{ needs.verified-release.outputs.release-tag }}
-      release-version: ${{ needs.verified-release.outputs.release-version }}
-      release-name: ${{ needs.verified-release.outputs.release-name }}
-      release-author: ${{ needs.verified-release.outputs.release-author }}
-      release-body: ${{ needs.verified-release.outputs.release-body }}
+      release-tag: ${{ needs.verify-release.outputs.release-tag }}
+      release-version: ${{ needs.verify-release.outputs.release-version }}
+      release-name: ${{ needs.verify-release.outputs.release-name }}
+      release-author: ${{ needs.verify-release.outputs.release-author }}
+      release-body: ${{ needs.verify-release.outputs.release-body }}
     name: Build Packages and Release
     needs: verify-release
     runs-on: ubuntu-latest
     steps:
+      - name: Prep env variables to pass
+        id: release
+        run: |
+            echo release-tag=${{ env.release-tag }} >> $GITHUB_OUTPUT
+            echo release-version=${{ env.release-version }} >> $GITHUB_OUTPUT
+            echo release-name=${{ env.release-name }} >> $GITHUB_OUTPUT
+            echo release-author=${{ env.release-author }} >> $GITHUB_OUTPUT
+            echo release-body=${{ env.release-body }} >> $GITHUB_OUTPUT
       - uses: actions/checkout@v4
       - uses: jtdor/build-deb-action@v1
         env:
@@ -103,7 +117,6 @@ jobs:
           before-build-hook: cd ./releases/wpe2k; debchange -v ${{ env.release-version }}; debchange -a "Latest - ${{ env.release-body }} - see github changelog https://github.com/itzteajay-glitch/wpe2k/blob/main/CHANGELOG.md"
           extra-build-deps: devscripts git
       - name: Rename and push files into release
-        id: release
         run: |
             echo ${{ env.release-version }}
             echo ${{ env.release-tag }}
@@ -118,8 +131,8 @@ jobs:
             echo release-tag=${{ env.release-tag }} >> $GITHUB_OUTPUT
             echo release-version=${{ env.release-version }} >> $GITHUB_OUTPUT
     outputs:
-      release-tag: ${{ steps.build.outputs.final-release-tag }}
-      release-version: ${{ steps.build.outputs.final-release-tag }}
-      release-name: ${{ steps.build-release.outputs.releaseName }}
-      release-author: ${{ steps.build-release.outputs.releaseAuthor }}
-      release-body: ${{ steps.build-release.outputs.releaseBody }}
+      release-tag: ${{ steps.release.outputs.release-tag }}
+      release-version: ${{ steps.release.outputs.releaseVersion }}
+      release-name: ${{ steps.release-content.outputs.releaseName }}
+      release-author: ${{ steps.release-content.outputs.releaseAuthor }}
+      release-body: ${{ steps.release-content.outputs.releaseBody }}
