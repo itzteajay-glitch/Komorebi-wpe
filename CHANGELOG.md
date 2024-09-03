@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.41](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.40...v1.0.41) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* moved GH_TOKEN to the update debian changelog step ([dc89896](https://github.com/itzteajay-glitch/wpe2k/commit/dc898969c80c0adc1d7495bc4f65b468cd82a66d))
+
 ## [1.0.40](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.39...v1.0.40) (2024-09-03)
 
 
