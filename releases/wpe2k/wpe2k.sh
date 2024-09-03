@@ -166,16 +166,16 @@ setup() {
             sudo -S chmod +x /etc/systemd/user/wpe2k-fs-monitor.service
             echo "20"
             echo "reloading systemctl"
-            sudo -S systemctl --user daemon-reload
+            sudo -S systemctl --machine=${USER}@.host --user daemon-reload
             echo "30"
             echo "# Enabling and setting wpe2k-fs-monitor.service to start on boot"
-            sudo -S systemctl --user enable wpe2k-fs-monitor.service
+            sudo -S systemctl --machine=${USER}@.host --user enable wpe2k-fs-monitor.service
             echo "40"
             echo "# Starting service"
-            sudo -S systemctl --user start wpe2k-fs-monitor.service
+            sudo -S systemctl --machine=${USER}@.host --user start wpe2k-fs-monitor.service
             echo "50"
             echo "# Verifying service is running"
-            sudo -S systemctl --user status -l wpe2k-fs-monitor.service | grep running
+            sudo -S systemctl --machine=${USER}@.host --user status -l wpe2k-fs-monitor.service | grep running
             if [ $? = 0 ]
             then
                 echo "wpe2k-fs-monitor.service was found and is running"
