@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.44](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.43...v1.0.44) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* changed directory in the before-build-hook path to move into the source-dir ([2f37af8](https://github.com/itzteajay-glitch/wpe2k/commit/2f37af88d4cb7facf536e80ff992e99cf99bf1de))
+
 ## [1.0.43](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.42...v1.0.43) (2024-09-03)
 
 
