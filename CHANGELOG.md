@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.39](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.38...v1.0.39) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* Testing pipeline ([3be7fa2](https://github.com/itzteajay-glitch/wpe2k/commit/3be7fa2ff032c00035ab7050e72e10dbc47654fd))
+
 ## [1.0.38](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.37...v1.0.38) (2024-09-02)
 
 
