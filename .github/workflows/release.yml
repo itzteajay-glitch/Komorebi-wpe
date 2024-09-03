@@ -15,6 +15,8 @@ on:
 
 env:
   DEBEMAIL: itzteajay@gmail.com
+  GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+  GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
 jobs:
   release:
@@ -30,15 +32,12 @@ jobs:
       - name: "🚀 release"
         id: semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           SKIP_NPM_PUBLISH: true
           SKIP_DOCKER_PUBLISH: true
         uses: open-sauced/release@v2
 
       - name: "Update debian changelog"
         id: semantic-release-content
-        env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
           echo releaseVersion=$(echo ${{ env.RELEASE_VERSION }}) >> $GITHUB_OUTPUT
           echo releaseName=$(gh release view --json name $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
@@ -52,11 +51,15 @@ jobs:
       release-body: ${{ steps.semantic-release-content.outputs.releaseBody }}
 
   verify-release:
+    env:
+      release-tag: ${{ needs.release.outputs.release-tag }}
+      release-version: ${{ needs.release.outputs.release-version }}
+      release-name: ${{ needs.release.outputs.release-name }}
+      release-author: ${{ needs.release.outputs.release-author }}
+      release-body: ${{ needs.release.outputs.release-body }}
     name: Verify Release
     needs: release
     runs-on: ubuntu-latest
-    env:
-          release-tag: ${{ needs.release.outputs.release-tag }}
     steps:
       - name: Checking for new release Release
         if: ${{ env.release-tag == '' }}
@@ -74,8 +77,17 @@ jobs:
     outputs:
       release-tag: ${{ steps.verified-release.outputs.release-tag }}
       release-version: ${{ steps.verified-release.outputs.release-version }}
+      release-name: ${{ steps.verified-release.outputs.releaseName }}
+      release-author: ${{ steps.verified-release.outputs.releaseAuthor }}
+      release-body: ${{ steps.verified-release.outputs.releaseBody }}
 
   build:
+    env:
+      release-tag: ${{ needs.verified-release.outputs.release-tag }}
+      release-version: ${{ needs.verified-release.outputs.release-version }}
+      release-name: ${{ needs.verified-release.outputs.release-name }}
+      release-author: ${{ needs.verified-release.outputs.release-author }}
+      release-body: ${{ needs.verified-release.outputs.release-body }}
     name: Build Packages and Release
     needs: verify-release
     runs-on: ubuntu-latest
@@ -84,8 +96,6 @@ jobs:
       - uses: jtdor/build-deb-action@v1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
-          release-tag: ${{ needs.verify-release.outputs.release-tag }}
-          release-version: ${{ needs.verify-release.outputs.release-version }}
         with:
           buildpackage-opts: --build=binary --no-sign
           source-dir: ./releases/wpe2k
@@ -94,10 +104,6 @@ jobs:
           extra-build-deps: devscripts git
       - name: Rename and push files into release
         id: release
-        env:
-          GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-          release-tag: ${{ needs.verify-release.outputs.release-tag }}
-          release-version: ${{ needs.verify-release.outputs.release-version }}
         run: |
             echo ${{ env.release-version }}
             echo ${{ env.release-tag }}
@@ -112,5 +118,8 @@ jobs:
             echo release-tag=${{ env.release-tag }} >> $GITHUB_OUTPUT
             echo release-version=${{ env.release-version }} >> $GITHUB_OUTPUT
     outputs:
-      release-tag: ${{ steps.release.outputs.final-release-tag }}
-      release-version: ${{ steps.release.outputs.final-release-tag }}
+      release-tag: ${{ steps.build.outputs.final-release-tag }}
+      release-version: ${{ steps.build.outputs.final-release-tag }}
+      release-name: ${{ steps.build-release.outputs.releaseName }}
+      release-author: ${{ steps.build-release.outputs.releaseAuthor }}
+      release-body: ${{ steps.build-release.outputs.releaseBody }}
