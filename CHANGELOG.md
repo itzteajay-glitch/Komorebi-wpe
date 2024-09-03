@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.42](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.41...v1.0.42) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* working on making debchange command function ([d0035b4](https://github.com/itzteajay-glitch/wpe2k/commit/d0035b49e225a218468e1b846606d53fc6f41375))
+
 ## [1.0.41](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.40...v1.0.41) (2024-09-03)
 
 
