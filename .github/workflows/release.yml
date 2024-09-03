@@ -40,7 +40,8 @@ jobs:
         id: release
         run: |
           echo release-version=$(echo ${{ env.RELEASE_VERSION }}) >> $GITHUB_OUTPUT
-          echo release-body=$(gh release view --json body | cut -d : -f 2-1000 | tr -d '{}') >> $GITHUB_OUTPUT
+          ghReleaseBody=$(gh release view --json body | cut -d : -f 2-1000 | tr -d '{#}')
+          echo release-body=$(echo $ghReleaseBody) >> $GITHUB_OUTPUT
     outputs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
       release-version: ${{ steps.release.outputs.release-version }}
