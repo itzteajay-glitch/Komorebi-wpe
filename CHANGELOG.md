@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.43](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.42...v1.0.43) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* modifying build package and release job to include updating the debian changelog file ([0f619c2](https://github.com/itzteajay-glitch/wpe2k/commit/0f619c2fbba81710450d650569c4dcfe2a669778))
+
 ## [1.0.42](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.41...v1.0.42) (2024-09-03)
 
 
