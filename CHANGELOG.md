@@ -5,6 +5,14 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.52](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.51...v1.0.52) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* added timeouts to every job ([6edb9ea](https://github.com/itzteajay-glitch/wpe2k/commit/6edb9ea815c5c7d5be780edd48352289bf1b3305))
+* modifying run step for the gh release body pull to see if I can make it work. ([6389252](https://github.com/itzteajay-glitch/wpe2k/commit/6389252b2991c1e14448c1bf3670752d8264ad51))
+
 ## [1.0.51](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.50...v1.0.51) (2024-09-03)
 
 
