@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [2.0.1](https://github.com/itzteajay-glitch/wpe2k/compare/v2.0.0...v2.0.1) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* After switching over to --user some errors occured. I was required to include --machine=${USER}@.host to resolve those errors. ([50828fb](https://github.com/itzteajay-glitch/wpe2k/commit/50828fb53c3c7c0edfcf316f9a85cd93a5139568))
+
 ## [2.0.0](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.54...v2.0.0) (2024-09-03)
 
 
