@@ -5,6 +5,14 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.45](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.44...v1.0.45) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* added release version and email to env variables to ensure debchange warnings were eliminated ([aed66c9](https://github.com/itzteajay-glitch/wpe2k/commit/aed66c9cf63ff61d6a54256bf200c9e7b809b337))
+* env varaible for RELEASE_VERSION fixed. ([acad95f](https://github.com/itzteajay-glitch/wpe2k/commit/acad95f72f308febfc30e1a0d0a81f2fa20cf2fe))
+
 ## [1.0.44](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.43...v1.0.44) (2024-09-03)
 
 
