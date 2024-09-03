@@ -154,6 +154,7 @@ setup() {
     --percentage=0 \
     --auto-close
 
+    # UPDATE: service now users the --user in systemd
     zenity --question \
     --text="This step turns the wpe2k-fs-monitor.sh script into a service. This will do it's best to kill komorebi when a full screen application is up and will start komorebi back up when no full screen app is detected.\n\n would you like to configure this script as a service?"
     case $? in
