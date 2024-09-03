@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.54](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.53...v1.0.54) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* modified the service file creation to point to the user who installed the application. ([365ef63](https://github.com/itzteajay-glitch/wpe2k/commit/365ef63ed5808a8cd808675545101ca6ef65a810))
+
 ## [1.0.53](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.52...v1.0.53) (2024-09-03)
 
 
