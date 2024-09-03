@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.40](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.39...v1.0.40) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* add gh token for getting the gh commit ([f8ddd89](https://github.com/itzteajay-glitch/wpe2k/commit/f8ddd89c3b8b44d22146fe8013818df26c51608d))
+
 ## [1.0.39](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.38...v1.0.39) (2024-09-03)
 
 
