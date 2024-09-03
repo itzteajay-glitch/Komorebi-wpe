@@ -82,7 +82,7 @@ jobs:
           buildpackage-opts: --build=binary --no-sign
           source-dir: ./releases/wpe2k
           artifacts-dir: ./releases/wpe2k/debian/artifacts
-          before-build-hook: debchange -a -M -v ${{ env.release-tag }}
+          before-build-hook: debchange -v ${{ env.release-tag }}; debchange -a "see github changelog https://github.com/itzteajay-glitch/wpe2k/blob/main/CHANGELOG.md"
           extra-build-deps: devscripts git
       - name: Rename and push files into release
         id: release

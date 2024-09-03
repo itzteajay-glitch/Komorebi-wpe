@@ -1,5 +1,7 @@
-wpe2k (0.0.1-1) UNRELEASED; urgency=medium
+wpe2k (1.0.1) UNRELEASED; urgency=medium
 
   * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  * this is a version
+  * testing comment
 
- -- TJ Hoth <itzteajay@gmail.com>  Sun, 01 Sep 2024 23:49:14 -0700
+ -- TJ Hoth <itzteajay@gmail.com>  Mon, 02 Sep 2024 20:50:17 -0700
