@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.49](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.48...v1.0.49) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* adjusted step source for release-tag to point back to the semantic-release step. ([35873da](https://github.com/itzteajay-glitch/wpe2k/commit/35873da479eed07b53688d02f4bb75950282a395))
+
 ## [1.0.48](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.47...v1.0.48) (2024-09-03)
 
 
