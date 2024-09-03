@@ -37,11 +37,13 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.RELEASE_TOKEN }}
         run: |
+          echo releaseVersion=$(echo ${{ RELEASE_VERSION }}) >> $GITHUB_OUTPUT
           echo releaseName=$(gh release view --json name $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
           echo releaseAuthor=$(gh release view --json author $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
           echo releaseBody=$(gh release view --json body $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
     outputs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
+      release-version: ${{ steps.semantic-release.outputs.releaseVersion }}
       release-name: ${{ steps.semantic-release-content.outputs.releaseName }}
       release-author: ${{ steps.semantic-release-content.outputs.releaseAuthor }}
       release-body: ${{ steps.semantic-release-content.outputs.releaseBody }}
@@ -64,9 +66,11 @@ jobs:
         run: |
             echo "New Release Found."
             echo release-tag=${{ env.release-tag }} >> $GITHUB_OUTPUT
+            echo release-version=${{ env.release-version }} >> $GITHUB_OUTPUT
             exit 0
     outputs:
       release-tag: ${{ steps.verified-release.outputs.release-tag }}
+      release-version: ${{ steps.verified-release.outputs.release-version }}
 
   build:
     name: Build Packages and Release
@@ -78,11 +82,12 @@ jobs:
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
           release-tag: ${{ needs.verify-release.outputs.release-tag }}
+          release-version: ${{ needs.verify-release.outputs.release-version }}
         with:
           buildpackage-opts: --build=binary --no-sign
           source-dir: ./releases/wpe2k
           artifacts-dir: ./releases/wpe2k/debian/artifacts
-          before-build-hook: cd ./releases/wpe2k; debchange -v ${{ env.release-tag }}; debchange -a "Latest - ${{ env.release-body }} - see github changelog https://github.com/itzteajay-glitch/wpe2k/blob/main/CHANGELOG.md"
+          before-build-hook: cd ./releases/wpe2k; debchange -v ${{ env.release-version }}; debchange -a "Latest - ${{ env.release-body }} - see github changelog https://github.com/itzteajay-glitch/wpe2k/blob/main/CHANGELOG.md"
           extra-build-deps: devscripts git
       - name: Rename and push files into release
         id: release
