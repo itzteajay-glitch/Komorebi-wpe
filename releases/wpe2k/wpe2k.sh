@@ -161,7 +161,7 @@ setup() {
         (
             echo "10"
             echo "# Generating Service file"; sleep 1
-            echo -e "[Unit]\nDescription=Komorebi Monitoring Service\n\n[Service]\nUser$USER\nType=simple\nExecStart=/bin/bash ${wpe2krepo}/wpe2k-fs-monitor.sh\n\n[Install]\nWantedBy=default.target" | sudo -S tee /etc/systemd/system/wpe2k-fs-monitor.service
+            echo -e "[Unit]\nDescription=Komorebi Monitoring Service\n\n[Service]\nUser=$USER\nType=simple\nExecStart=/bin/bash ${wpe2krepo}/wpe2k-fs-monitor.sh\n\n[Install]\nWantedBy=default.target" | sudo -S tee /etc/systemd/system/wpe2k-fs-monitor.service
             sudo -S chmod +x /etc/systemd/system/wpe2k-fs-monitor.service
             echo "20"
             echo "reloading systemctl"
