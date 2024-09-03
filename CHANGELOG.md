@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.51](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.50...v1.0.51) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* syntax error with variables in release job ([5fadb02](https://github.com/itzteajay-glitch/wpe2k/commit/5fadb0276a3f90c3b0355b7e72a5fa201516af36))
+
 ## [1.0.50](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.49...v1.0.50) (2024-09-03)
 
 
