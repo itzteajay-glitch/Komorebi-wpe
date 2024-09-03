@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.48](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.47...v1.0.48) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* streamlined env variables and data passing between jobs even further. Now each job has an identical step to pass data where commands formatted neatly ([37681e9](https://github.com/itzteajay-glitch/wpe2k/commit/37681e996d209c634dcac99e87995d2ff32f13cb))
+
 ## [1.0.47](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.46...v1.0.47) (2024-09-03)
 
 
