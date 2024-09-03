@@ -5,6 +5,13 @@
 
 > All notable changes to this project will be documented in this file
 
+## [1.0.47](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.46...v1.0.47) (2024-09-03)
+
+
+### 🐛 Bug Fixes
+
+* further streamlined variable passing for env variables to make it easier to manage and read. Fixed broken version number in package files. ([ecebf9b](https://github.com/itzteajay-glitch/wpe2k/commit/ecebf9bf59c0248033c17a5436ab6a21dde72381))
+
 ## [1.0.46](https://github.com/itzteajay-glitch/wpe2k/compare/v1.0.45...v1.0.46) (2024-09-03)
 
 
