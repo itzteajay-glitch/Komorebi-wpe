@@ -31,8 +31,18 @@ jobs:
           SKIP_NPM_PUBLISH: true
           SKIP_DOCKER_PUBLISH: true
         uses: open-sauced/release@v2
+
+      - name: "Update debian changelog"
+        id: semantic-release-content
+        run: |
+          echo releaseName=$(gh release view --json name $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
+          echo releaseAuthor=$(gh release view --json author $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
+          echo releaseBody=$(gh release view --json body $(echo ${{ steps.semantic-release.outputs.release-tag }})) >> $GITHUB_OUTPUT
     outputs:
       release-tag: ${{ steps.semantic-release.outputs.release-tag }}
+      release-name: ${{ steps.semantic-release-content.outputs.releaseName }}
+      release-author: ${{ steps.semantic-release-content.outputs.releaseAuthor }}
+      release-body: ${{ steps.semantic-release-content.outputs.releaseBody }}
 
   verify-release:
     name: Verify Release
@@ -65,10 +75,13 @@ jobs:
       - uses: jtdor/build-deb-action@v1
         env:
           DEB_BUILD_OPTIONS: noautodbgsym
+          release-tag: ${{ needs.verify-release.outputs.release-tag }}
         with:
           buildpackage-opts: --build=binary --no-sign
           source-dir: ./releases/wpe2k
           artifacts-dir: ./releases/wpe2k/debian/artifacts
+          before-build-hook: debchange --append --controlmaint -v ${{ env.release-tag }}
+          extra-build-deps: devscripts git
       - name: Rename and push files into release
         id: release
         env:
@@ -87,22 +100,3 @@ jobs:
             echo final-release-tag=${{ env.final-release }} >> $GITHUB_OUTPUT
     outputs:
       verified-release-tag: ${{ steps.release.outputs.final-release-tag }}
-
-  update-deb-changelog:
-    name: Update Debian Changelog
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref }}
-
-      # Other steps that change files in the repository go here
-      # …
-
-      # Commit all changed files back to the repository
-      - uses: stefanzweifel/git-auto-commit-action@v5
