@@ -1,0 +1,59 @@
+
+{
+    "wpe2k": [
+        {
+            "systemConfig": [
+                {
+                    "logEnabled": true,
+                    "logging": [
+                        {
+                            "logLevelSet": 3,
+                            "logLevel": [
+                                {
+                                    "name": "info",
+                                    "level": 0,
+                                    "tag": "[INFO]"
+                                },
+                                {
+                                    "name": "warning",
+                                    "level": 1,
+                                    "tag": "[WARN]"
+                                },
+                                {
+                                    "name": "error",
+                                    "level": 2,
+                                    "tag": "[ERROR]"
+                                },
+                                {
+                                    "name": "debug",
+                                    "level": 3,
+                                    "tag": "[DEBUG]"
+                                }
+                            ]
+                        }
+                    ]   
+                }
+            ],
+            "scriptProperties": [
+                {
+                    "name": "Installation Properties",
+                    "type": "install",
+                    "description": "some text here"
+                },
+                {
+                    "name": "Service Properties",
+                    "type": "service",
+                    "description": "All properties used by wpe2k service"
+                }
+            ],
+            "userProperties": [
+                {
+                    "steamPath": "",
+                    "steamWorkshopPath": "",
+                    "komorebiResourcesPath": "/System/Resources/Komorebi",
+                    "komorebiApplicationPath": "/System/Application/Komorebi"
+                }
+            ]
+        }
+    ]
+}

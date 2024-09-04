@@ -1,0 +1,9 @@
+[Unit]
+Description=Komorebi Monitoring Service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /opt/wpe2k/wpe2k-monitor
+
+[Install]
+WantedBy=graphical-session.target

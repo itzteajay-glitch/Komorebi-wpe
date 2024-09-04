@@ -1,0 +1,267 @@
+#!/bin/bash
+# Author: TJ Hoth
+
+###
+# Types of functions
+# wpe2kService_* - These are functions related to the running service for wpe2k
+# wpe2kSetting_* - These are functions related to storing or changing setttings
+# wpe2kGUI_* - These are functions relate to the GUI. All GUI items included here with the exception of Settings
+
+# Path Variables
+config="/opt/wpe2k/config/wpe2k.json"
+dataWallpaper="/opt/wpe2k/data/wallpaper.json"
+wpe2kTmp="/tmp/wpe2k/"
+
+# Common jq
+logLevelSet=$(cat $config | jq '.wpe2k[].systemConfig[].logging[].logLevelSet' -r)
+
+# Logging Function
+wpe2kService_log() {
+    # Logging properties found in #wpe2k.json
+    # To enable logging fully update the logLevelSet key in wpe2k.json to the appropriate number for the level you want.
+    # While in development log leve is at debug.
+    # log stored in /var/log
+    # syntax for logging is 
+    # logmessage=$(echo "0"; echo "$scriptName"; echo "message"); vpe2klog
+    local logDayTime=$(date +"%Y-%m-%d %H:%M:%S.%3N")
+    local logMessage="echo $($@ | awk '{$1$2=""; print $0}')"
+    local logLevel="$1"
+    local logSource=$(echo $2 | tr '[:lower:]' '[:upper:]')
+    if ( $logLevel <= $logLevelSet )
+        then
+            case $logLevel in
+            0) logLevelTag=$(cat $config | jq '.wpe2k[].systemConfig[].logging[].logLevel['$logLevelSet'].tag' -r);;
+            1) logLevelTag=$(cat $config | jq '.wpe2k[].systemConfig[].logging[].logLevel['$logLevelSet'].tag' -r);;
+            2) logLevelTag=$(cat $config | jq '.wpe2k[].systemConfig[].logging[].logLevel['$logLevelSet'].tag' -r);;
+            3) logLevelTag=$(cat $config | jq '.wpe2k[].systemConfig[].logging[].logLevel['$logLevelSet'].tag' -r);;
+            *) 
+            esac
+            # Define $lm when generating the log line
+            echo "$logDayTime - $logLevelTag $logSource $logMessage" >> $logFile
+    fi
+}
+
+wpe2kService_Setup() {
+    local title="Setup"
+    (
+        echo "# Generating setup Log"
+        echo "1"
+        touch /var/log/wpe2k.log
+        
+        # Initializing script and checking prerequisits
+        echo "10"
+        echo "# Initializing script and checking prerequisite" ; sleep 1
+        
+        # Verify Steam is installed
+        echo "20"
+        echo "# Verifying steam installation"
+        checkCommand=$(which steam)
+        logMessage=$(echo "which steam | $checkCommand"); wpe2klog "0" "install" "$logMessage"
+        which steam
+        if [ $? = 0 ]
+        then
+            logMessage=$(echo "steam is installed"); wpe2klog "0" "install" "$logMessage"
+        else
+            logMessage=$(echo "steam is not installed on this sytem. Please install steam."); wpe2klog "2" "install" "$logMessage"
+            zenity --error \
+            --text="Steam was not found. Please install steam."
+            exit 0
+        fi
+
+        # Check home dir for .steam file
+        echo "40"
+        echo "# Checking home dir for .steam directory" ; sleep 1
+        checkCommand=$(ls -a /home/$USER | grep .steam$)
+        logMessage=$(echo "ls -a /home/$USER | grep .steam$ | $checkCommand"); wpe2klog "0" "install" "$logMessage"
+        ls -a /home/$USER | grep .steam$
+        if [ $? = 0 ]
+        then
+            logMessage=$(echo ".steam directory is located in home");  wpe2klog "0" "install" "$logMessage"
+        else
+            logMessage=$(echo ".steam directory was not located in home. Please submit a bug so I can catch your steam location in future updates.");  wpe2klog "2" "install" "$logMessage"
+            zenity --error \
+            --text="~/.steam was not found. Please see $logFile"
+            exit 0
+        fi
+
+        # Check for Wallpaper Engine in steam directory
+        echo "50"
+        echo "# Checking for wallpaper engine" ; sleep 1
+        ls -a /home/$USER/.steam/steam/steamapps/common | grep wallpaper_engine
+        if [ $? = 0 ]
+        then
+            logMessage="wallpaper engine was found."; wpe2klog "0" "install" "$logMessage"
+        else
+            logMessage="wallpaper engine was not found in /home/$USER/.steam/steam/steamapps/common Please ensure you've installed Wallpaper engine through steam using proton."; wpe2klog "2" "install" "$logMessage"
+            zenity --error \
+            --text="Unable to locate wallpaper engine. Please see $logFile"
+            exit 0
+        fi
+
+        # Checks to see if Komorebi is installed.
+        echo "60"
+        echo "# Checking for Komorebi" ; sleep 1
+        checkCommand=$(dpkg-query -W komorebi)
+        logMessage=$(echo "dpkg-query -W komorebi | $checkCommand"); wpe2klog "0" "install" "$logMessage"
+        dpkg-query -W komorebi >>/dev/null
+        if [ $? = 0 ]
+        then
+            logMessage="Komorebi was found."; wpe2klog "0" "install" "$logMessage"
+        else
+            logMessage="Komorebi was not found. This application is searched using the above command. Please check your output and ensure Komorebi is installed properly."; wpe2klog "2" "install" "$logMessage"
+            zenity --error \
+            --text="Unable to locate Komorebi. Please see $logFile"
+            exit 0
+        fi
+
+        # Checks to see if Komorebi is installed.
+        echo "70"
+        echo "# Checking for /System/Resources/Komorebi" ; sleep 1
+        checkCommand=$(if [ -d /System/Resources/Komorebi ]; then echo "/System/Resources/Komorebi exists"; else echo "/System/Resources/Komorebi does not exist."; fi)
+        logMessage=$(echo "$checkCommand"); wpe2klog "0" "install" "$logMessage"
+
+        if [ -d /System/Resources/Komorebi ]
+        then
+            logMessage="Komorebi resources directory was found."; wpe2klog "0" "install" "$logMessage"
+        else
+            logMessage="Komorebi resources directory was not found. Please ensure Komorebi was properly installed."; wpe2klog "2" "install" "$logMessage"
+            zenity --error \
+            --text="Unable to locate Komorebi resources directory. Please see $logFile"
+            exit 0
+        fi
+
+        echo "80"
+        echo "# Checking for ffmpeg" ; sleep 1
+        checkCommand=$(which ffmpeg)
+        logMessage=$(echo "which ffmpeg | $checkCommand"); wpe2klog "0" "install" "$logMessage"
+        which ffmpeg
+        if [ $? = 0 ]
+        then
+            logMessage="ffmpeg is installed"; wpe2klog "0" "install" "$logMessage"
+        else
+            logMessage="ffmpeg is not installed on this sytem. Please install ffmpeg."; wpe2klog "0" "install" "$logMessage"
+            zenity --error \
+            --text="ffmpeg was not found. Please install ffmpeg."
+            exit 0
+        fi
+
+        echo "85"
+        echo "# All checks passed" ; sleep 1
+        logMessage=$(echo "All Checks Passed"); wpe2klog "0" "install" "$logMessage"
+        echo "100" ; sleep 1
+    ) | 
+    zenity --progress \
+    --title="$title" \
+    --percentage=0 \
+    --auto-close
+}
+
+# Saving the below code incase the auto-creation of the wpe2k-monitor service doesn't work.
+
+#    zenity --question \
+#    --text="This step turns the wpe2k-fs-monitor.sh script into a service. This will do it's best to kill komorebi when a full screen application is up and will start komorebi back up when no full screen app is detected.\n\n would you like to configure this script as a service?"
+#    case $? in
+#    0) zenity --password --title="Sudo Password" | sudo -Sv
+#        (
+#            echo "10"
+#            echo "# Generating Service file"; sleep 1
+#            echo -e "[Unit]\nDescription=Komorebi Monitoring Service\n\n[Service]\nType=simple\nExecStart=/bin/bash ${wpe2krepo}/wpe2k-fs-monitor.sh\n\n[Install]\nWantedBy=graphical-session.target" | sudo -S tee /etc/systemd/user/wpe2k-fs-monitor.service
+#            chmod +x /etc/systemd/user/wpe2k-fs-monitor.service
+#            echo "20"
+#            echo "reloading systemctl"
+#            sudo -S systemctl --machine=${USER}@.host --user daemon-reload
+#            echo "30"
+#            echo "# Enabling and setting wpe2k-fs-monitor.service to start on boot"
+#            sudo -S systemctl --machine=${USER}@.host --user enable wpe2k-fs-monitor.service
+#            echo "40"
+#            echo "# Starting service"
+#            sudo -S systemctl --machine=${USER}@.host --user start wpe2k-fs-monitor.service
+#            echo "50"
+#            echo "# Verifying service is running"
+#            sudo -S systemctl --machine=${USER}@.host --user status -l wpe2k-fs-monitor.service | grep running
+#            if [ $? = 0 ]
+#            then
+#                echo "wpe2k-fs-monitor.service was found and is running"
+#            else
+#                zenity --error \
+#                --text="service was not running. Please investigate further."
+#                exit 0
+#            fi
+#        ) |
+#        zenity --progress \
+#        --title="$title" \
+#        --percentage=0 \
+#        --auto-close ;;
+#    1) echo "Skipping..." ;;
+#    5) echo "Timeout reached. Skipping" ;;
+#    *) echo "Invalid Input" ;;
+#    esac
+
+wpe2kService_migrate() {
+    # Create a list of all directories in the wpe steam workship dir
+    local title="Migrating WPE videos to Komorebi"
+    wpe2kSetting_SteamWorkshopPath
+    (
+        echo "2"
+        echo "# Generating video-wallpapers.lst file"; sleep 1
+        grep -r '"type" : "video"' ${wpeWorkshopLocation} | cut -d '/' -f 10 >${wpe2kDir}video-wallpapers.lst
+        wpeDirCounter=1
+        echo "3"
+        echo "# Beginning Migration of video files"
+        for wpeDir in $(cat ${wpe2kDir}video-wallpapers.lst)
+        do
+            wpeDirCounter=$((wpeDirCounter + 1))
+            wpPath="${wpeWorkshopLocation}/${wpeDir}"
+            logMessage=$(echo "Migrate: type VIDEO found in ${wpPath}"); log "$logExec" "$logMessage"
+            getTitle=$(grep '"title" : ' ${wpeWorkshopLocation}/${wpeDir}/project.json | cut -d '"' -f 4 | tr ' ' '-' | tr -d '/')
+            getFile=$(ls ${wpeWorkshopLocation}/${wpeDir} | egrep 'mp4|webm')
+            if [ -z "${getFile}" ]
+            then
+                logMessage=$(echo "Migrate: $getFile is missing a video file... skipping."); log "$logWarn" "$logMessage"
+                continue
+            fi
+            logMessage=$(echo "Migrate: $getTitle - $getFile"); log "$logInfo" "$logMessage"
+            echo "# ${getTitle} - ${wpeDir}"
+            echo "${wpeDirCounter}"
+
+            mkdir -p "/tmp/wpe2k/${getTitle}"
+            ffmpeg -y -loglevel quiet -ss 00:00:01 -i "${wpeWorkshopLocation}/${wpeDir}/${getFile}" -frames:v 1 -q:v 5 "${wpe2kTempDir}${getTitle}/wallpaper.jpg" >>/dev/null
+            ffmpeg -y -loglevel quiet  -i wallpaper.jpg -vf "scale=64:36,crop=36:36:14:14" icon.jpg 
+            cp "${wpeWorkshopLocation}/${wpeDir}/${getFile}" "${wpe2kTempDir}${getTitle}"
+            echo -e "[Info]\nWallpaperType=video\nVideoFileName=$getFile\n\n[DateTime]\nVisible=false\nParallax=true\nMarginTop=0\nMarginRight=0\nMarginLeft=10\nMarginBottom=45\nRotationX=0\nRotationY=0\nRotationZ=0\nPosition=center\nAlignment=center\nAlwaysOnTop=true\nColor=#dd22dd22dd22\nAlpha=255\nShadowColor=#dd22dd22dd22\nShadowAlpha=255\nTimeFont=Lato Light 30\nDateFont=Lato Light 20" >${wpe2kTempDir}${getTitle}/config
+            unset getFile
+        done
+        echo "80"
+        echo "# Copying directories from /home/tjhoth/wpe2k/tmp/ to /System/Resources/Komorebi"
+        zenity --password --title="Sudo Password" --text="Please enter your sudo password.\nThis is only used for this copy." | sudo -S cp -r ${wpe2kTempDir}* /System/Resources/Komorebi
+        echo "90"
+        echo "# Cleaning up temporary files"
+        rm -rf /home/tjhoth/wpe2k/tmp
+        echo "100"; sleep 1
+    ) |
+    zenity --progress \
+    --title="$title" \
+    --percentage=0 \
+    --auto-close
+
+    zenity --info \
+    --text="Migration complete."
+}
+
+wpe2kSetting_SteamWorkshopPath() {
+    # Locate the steam workshop directory for wpe
+    steamWorkshopPath=$(cat $config | jq '.wpe2k[].userProperties[].steamWorkshopPath')
+    if [ "$steamWorkshopPath" -eq "" ]
+    then
+        logMessage="No steam path saved in config."; wpe2klog "1" "install" "$logMessage"
+        zenity --info --text="Please select the directory where wallpaper engine stores workshop items. This can be found by right clicking on an item in WPE's UI and clicking \"open in explorer\""
+        wpeWorkshopLocation=$(zenity --file-selection --directory --filename="/home/$USER/.steam/steam/steamapps/workshop/content/" --title="Please locate your steam workshop directory")
+        case $? in
+        0) configUpdate=$(jq '.wpe2k[].userProperties[].steamWorkshopPath = "testing"' $config); echo -e "$configUpdate" > $config ;;
+        1) echo "No file selected." ;;
+        -1) echo "An unexpected error has occurred." ;;
+        esac
+    else
+        logMessage="Steam Workshop path found"; wpe2klog "0" "install" "$logMessage"
+    fi
+}

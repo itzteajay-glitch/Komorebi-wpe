@@ -1,0 +1,39 @@
+#!/bin/bash
+# Author: TJ Hoth
+# Creation Date: 08-27-2024
+# Scope: This script is used to migrate video wallpapers from wallpaper engine on steam into Komorebi
+
+# Credits: 
+# Graphical interface: https://www.baeldung.com/linux/shell-script-simple-select-menu
+
+# Define Common Paths
+wpe2kDir="/opt/wpe2k/"
+
+# Settings Menu Lists
+mmitems=("icon")
+
+# main body
+title="Komorebi WPE"
+prompt="Settings"
+wpList=$(yad \
+        --title="$title" \
+        --text="$prompt" \
+        --list \
+        --column=ICON:IMG \
+        --column="name" \
+        --column="description" \
+        --imagelist \
+        $(cat data/wallpaper.json | jq -r '.wallpapers[] | [.previewImage, .title, .info.VideoFileName] | @sh' | tr -d \')
+    )
+    
+    if [[ $? -eq 1 ]]
+        then
+            exit 1
+        else
+            echo "testing"
+        fi
+
+
+#--imagelist \
+#--hide-headers \
+#--print-column=ALL \
