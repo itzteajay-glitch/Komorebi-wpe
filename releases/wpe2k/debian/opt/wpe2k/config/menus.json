@@ -1,0 +1,60 @@
+
+{
+    "menus": [
+        {
+            "name": "main",
+            "title": "wpe2k",
+            "prompt": "Main Menu",
+            "type": "--list",
+            "hidden": "--no-headers ",
+            "columns": [
+                {
+                    "headers": [
+                        {
+                            "icon:IMG": [
+                                "icon-1",
+                                "icon-2",
+                                "icon-3",
+                                "icon-4",
+                                "icon-5"
+                            ],
+                            "name": [
+                                "name-1",
+                                "name-2",
+                                "name-3",
+                                "name-4",
+                                "name-5"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "wallpapers",
+            "type": "list",
+            "columns": [
+                {
+                    "key1": "value",
+                    "key2": "value",
+                    "key3": "value",
+                    "key4": "value",
+                    "key5": "value"
+                }
+            ]
+        },
+        {
+            "name": "settings",
+            "type": "list",
+            "columns": [
+                {
+                    "key1": "value",
+                    "key2": "value",
+                    "key3": "value",
+                    "key4": "value",
+                    "key5": "value"
+                }
+            ]
+        }
+    ]
+}

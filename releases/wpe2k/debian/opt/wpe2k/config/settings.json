@@ -1,0 +1,26 @@
+{
+    "settings": [
+        {
+            "script": [
+                {
+                    "name": "Installation Properties",
+                    "type": "install",
+                    "description": "some text here"
+                },
+                {
+                    "name": "Service Properties",
+                    "type": "service",
+                    "description": "All properties used by wpe2k service"
+                }
+            ],
+            "user": [
+                {
+                    "steamPath": "",
+                    "steamWorkshopPath": "",
+                    "komorebiResourcesPath": "/System/Resources/Komorebi",
+                    "komorebiApplicationPath": "/System/Application/Komorebi"
+                }
+            ]
+        }
+    ]
+}

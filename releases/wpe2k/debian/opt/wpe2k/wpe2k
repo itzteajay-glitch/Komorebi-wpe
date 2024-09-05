@@ -4,18 +4,51 @@
 # Scope: This script is used to migrate video wallpapers from wallpaper engine on steam into Komorebi
 
 # Credits: 
-# Graphical interface: https://www.baeldung.com/linux/shell-script-simple-select-menu
+# Graphical interface: YAD - https://yad-guide.ingk.se/
 
 # Define Common Paths
 wpe2kDir="/opt/wpe2k/"
+configMenu="config/menus.json"
 
 # Settings Menu Lists
 mmitems=("icon")
 
-# main body
-title="Komorebi WPE"
-prompt="Settings"
-wpList=$(yad \
+getMenu() {
+    menu=$(cat $configMenu | jq '.menus[] | select(.name == "'$1'")')
+    title=$(echo $menu | jq -r '.title')
+    prompt=$(echo $menu | jq -r '.prompt')
+    type=$(echo $menu |  jq -r '.type')
+    hidden=$(echo $menu | jq -r '.hidden')
+    headers=$(echo $menu | jq -r '[.columns[].headers[] | keys[]] | @sh')
+    for header in $(echo $headers)
+    do
+     columns=$(echo $menu | jq -r '[.columns[]] | @sh')
+}
+
+mainMenu() {
+    getMenu "main"
+    # main body
+    wpList=$(yad \
+        --title="$title" \
+        --text="$prompt" \
+        $type \
+        $hidden \
+        --column="$columns" \
+    )
+
+    if [[ $? -eq 1 ]]
+    then
+        exit 1
+    else
+        echo "testing"
+    fi
+}
+
+settingsMenu() {
+    # main body
+    title="Komorebi WPE"
+    prompt="Settings"
+    wpList=$(yad \
         --title="$title" \
         --text="$prompt" \
         --list \
@@ -25,15 +58,13 @@ wpList=$(yad \
         --imagelist \
         $(cat data/wallpaper.json | jq -r '.wallpapers[] | [.previewImage, .title, .info.VideoFileName] | @sh' | tr -d \')
     )
-    
+
     if [[ $? -eq 1 ]]
-        then
-            exit 1
-        else
-            echo "testing"
-        fi
+    then
+        exit 1
+    else
+        echo "testing"
+    fi
+}
 
-
-#--imagelist \
-#--hide-headers \
-#--print-column=ALL \
+mainMenu
