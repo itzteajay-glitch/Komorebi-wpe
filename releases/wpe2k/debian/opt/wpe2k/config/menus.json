@@ -4,27 +4,39 @@
         {
             "name": "main",
             "title": "wpe2k",
-            "prompt": "Main Menu",
             "type": "--list",
             "hidden": "--no-headers ",
-            "columns": [
+            "width": "400",
+            "height": "400",
+            "location": "--center",
+            "buttons": [
                 {
-                    "headers": [
+                    "id": 0,
+                    "name": "OK"
+                },
+                {
+                    "id": 1,
+                    "name": "Close"
+                }
+            ],
+            "body": [
+                {
+                    "columns":
+                    [
                         {
-                            "icon:IMG": [
-                                "icon-1",
-                                "icon-2",
-                                "icon-3",
-                                "icon-4",
-                                "icon-5"
-                            ],
-                            "name": [
-                                "name-1",
-                                "name-2",
-                                "name-3",
-                                "name-4",
-                                "name-5"
-                            ]
+                            "id": 1,
+                            "icon": "something.jpg",
+                            "name": "Wallpapers"
+                        },
+                        {
+                            "id": 2,
+                            "icon": "something.jpg",
+                            "name": "Settings"
+                        },
+                        {
+                            "id": 3,
+                            "icon": "something.jpg",
+                            "name": "bumm"
                         }
                     ]
                 }

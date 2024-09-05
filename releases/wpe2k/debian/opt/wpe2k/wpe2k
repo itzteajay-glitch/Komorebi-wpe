@@ -10,38 +10,70 @@
 wpe2kDir="/opt/wpe2k/"
 configMenu="config/menus.json"
 
-# Settings Menu Lists
-mmitems=("icon")
+# Globals
+wpe2kRunning="true"
 
 getMenu() {
-    menu=$(cat $configMenu | jq '.menus[] | select(.name == "'$1'")')
-    title=$(echo $menu | jq -r '.title')
-    prompt=$(echo $menu | jq -r '.prompt')
-    type=$(echo $menu |  jq -r '.type')
+    unset menu menuName width height location title type hidden buttons id buttonName button columns column key columnKeys rows menuMain
+    menu=$(cat $configMenu | jq -r '.menus[] | select(.name == "'$1'")')
+    menuName=$(echo ${menu} | jq -r '.name')
+    echo "Current Menu: $menuName"
+    width=$(echo $menu | jq -r '.width'); width=$(echo "--width=$width")
+    echo $width
+    height=$(echo $menu | jq -r '.height'); height=$(echo "--height=$height")
+    echo $height
+    title=$(echo $menu | jq -r '.title'); title=$(echo "--title=$title")
+    echo $title
+    type=$(echo $menu | jq -r '.type')
+    echo $type
+    location=$(echo $menu | jq -r '.location')
+    echo $location
     hidden=$(echo $menu | jq -r '.hidden')
-    headers=$(echo $menu | jq -r '[.columns[].headers[] | keys[]] | @sh')
-    for header in $(echo $headers)
+    echo $hidden
+    #    buttons=$(echo $menu | jq -r '.buttons[] | ([.id]) | @sh')
+    #    for id in $(echo $buttons)
+    #    do
+    #        buttonName=$(echo $menu | jq -r '.buttons['$id'] | ([.name]) | @sh' | tr -d \')
+    #        button=$(echo $button;echo "--button=$buttonName:$id ")
+    #    done
+    #    echo $button
+    columns=$(echo $menu | jq -r '.body[].columns[0] | keys_unsorted[]')
+    for key in $(echo $columns)
     do
-     columns=$(echo $menu | jq -r '[.columns[]] | @sh')
+        column=$(echo $column;echo "--column=$key ")
+        columnKeys=$(echo $columnKeys;echo ".$key, ")
+    done
+    echo $column
+    columnKeys=${columnKeys::-2}
+    rows=$(echo $menu | jq -r '.body[].columns[] | (['"$columnKeys"']) | @sh' | tr -d \')
 }
 
 mainMenu() {
-    getMenu "main"
+    menuName="main"
+    getMenu $menuName
     # main body
-    wpList=$(yad \
-        --title="$title" \
-        --text="$prompt" \
-        $type \
-        $hidden \
-        --column="$columns" \
-    )
-
-    if [[ $? -eq 1 ]]
-    then
-        exit 1
-    else
-        echo "testing"
-    fi
+    while menuMain=$(yad $width $height $location $title $hidden $type $button $column $rows)
+    do
+        echo $menuMain
+        if [ $? == 1 ]
+        then
+            echo "Error thrown"
+            exit 1
+        else
+            menuId=$(echo $menuMain | cut -d \| -f 1)
+            menuFull=$(echo $menuMain | sed 's/|/ /g')
+            case $menuId in
+            1) echo "Selected: $menuFull" ;;
+            2) echo "Selected: $menuFull" ;;
+            3) echo "Selected: $menuFull" ;;
+            *) echo "confused..."
+                echo "reloading data..."
+                getMenu "main"
+                ;;
+            esac
+        fi
+        getMenu $menuName
+    done
 }
 
 settingsMenu() {
@@ -65,6 +97,7 @@ settingsMenu() {
     else
         echo "testing"
     fi
+    mainMenu
 }
 
 mainMenu
