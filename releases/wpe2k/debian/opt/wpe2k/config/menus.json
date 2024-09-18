@@ -1,0 +1,129 @@
+{
+    "menus": [
+        {
+            "global": [
+                {
+                    "var": "wpe2kDir",
+                    "content": "/opt/wpe2k/"
+                },
+                {
+                    "var": "name",
+                    "content": "wpe2k"
+                },
+                {
+                    "var": "width",
+                    "content": "600"
+                },
+                {
+                    "var": "height",
+                    "content": "800"
+                },
+                {
+                    "var": "location",
+                    "content": "center"
+                }
+            ],
+            "wallpaper": {
+                "id": 0,
+                "icon": "something.jpg",
+                "title": "wallpaper",
+                "type": "--icon",
+                "boarders": "10",
+                "flags": "--icons --no-headers --single-click --sort-by-name",
+                "textalign": "left",
+                "text": "<span font_weight='bold' font='20' color='#7F34A2'> wpe2k</span>",
+                "read-dir": "media/wallpaper/",
+                "image": "media/wallpaper/icon.svg",
+                "item-width": "100",
+                "buttons": [
+                    {
+                        "id": 0,
+                        "name": "OK"
+                    },
+                    {
+                        "id": 1,
+                        "name": "Close"
+                    }
+                ],
+                "body": [
+                    {
+                        "columns": [
+                            {
+                                "id": 0,
+                                "icon": "something.jpg",
+                                "name": "Wallpapers"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "something.jpg",
+                                "name": "Settings"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "something.jpg",
+                                "name": "bumm"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "settings": {
+                "id": 1,
+                "icon": "something.jpg",
+                "name": "settings",
+                "title": "settings",
+                "type": "--list",
+                "boarders": "10",
+                "textalign": "left",
+                "hidden": "",
+                "width": "400",
+                "height": "400",
+                "flags": "--list --center",
+                "buttons": [
+                    {
+                        "id": 0,
+                        "name": "OK"
+                    },
+                    {
+                        "id": 1,
+                        "name": "Close"
+                    }
+                ],
+                "body": [
+                    {
+                        "columns": [
+                            {
+                                "id": 0,
+                                "icon": "something.jpg",
+                                "name": "Wallpapers"
+                            },
+                            {
+                                "id": 1,
+                                "icon": "something.jpg",
+                                "name": "Settings"
+                            },
+                            {
+                                "id": 2,
+                                "icon": "something.jpg",
+                                "name": "bumm"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name": "wallpapers",
+            "type": "list",
+            "columns": [
+                {
+                    "key1": "value",
+                    "key2": "value",
+                    "key3": "value",
+                    "key4": "value",
+                    "key5": "value"
+                }
+            ]
+        }
+    ]
+}

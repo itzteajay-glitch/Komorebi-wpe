@@ -4,36 +4,130 @@
 # Scope: This script is used to migrate video wallpapers from wallpaper engine on steam into Komorebi
 
 # Credits: 
-# Graphical interface: https://www.baeldung.com/linux/shell-script-simple-select-menu
+# Graphical interface: YAD - https://yad-guide.ingk.se/
 
-# Define Common Paths
-wpe2kDir="/opt/wpe2k/"
+menuJson=$(cat config/menus.json)
 
-# Settings Menu Lists
-mmitems=("icon")
+# Set Globals
+# Outputs a list of variables from the .menus[].global[] array in the menus.json file. Please reference that file to understand what variables are genearted here.
+globalKey=$(echo $menuJson | jq '.menus[0].global[]' | jq -r '.var')
+for globalValue in $(echo $globalKey)
+do
+    # echo $menuJson | jq -r '.menus[0].global[] | select(.var=="'${globalValue}'")'
+    content=$(echo $menuJson | jq -r --arg n $globalValue '.menus[0].global[] | select(.var == $n) | .content' )
+    declare $globalValue=$(echo "--$globalValue="$content"")
+done
 
-# main body
-title="Komorebi WPE"
-prompt="Settings"
-wpList=$(yad \
-        --title="$title" \
-        --text="$prompt" \
-        --list \
-        --column=ICON:IMG \
-        --column="name" \
-        --column="description" \
-        --imagelist \
-        $(cat data/wallpaper.json | jq -r '.wallpapers[] | [.previewImage, .title, .info.VideoFileName] | @sh' | tr -d \')
-    )
-    
-    if [[ $? -eq 1 ]]
+name=$(echo $name | cut -d '=' -f 2)
+
+getMenu() {
+    # unset menu title type buttons id buttonName button columns column key columnKeys rows menuMain
+    menu=$(echo $menuJson | jq -r '.menus[].'$menuName'//empty')
+    echo $menu
+    echo "Current Menu: $menuName"
+    echo "Global Menu Settings"
+    echo $width
+    echo $height
+    echo $location
+    title=$(echo $menu | jq -r '.title'); title=$(echo "--title=$name - $title")
+    echo $title
+    boarders=$(echo $menu | jq -r '.boarders'); boarders=$(echo "--boarders=$boarders")
+    echo $boarders
+    textalign=$(echo $menu | jq -r '.textalign'); textalign=$(echo "--text-align=$textalign")
+    echo $textalign
+    flags=$(echo $menu | jq -r '.flags')
+    echo $flags
+    buttons=$(echo $menu | jq -r '.buttons[] | ([.id]) | @sh')
+    for id in $(echo $buttons)
+    do
+        buttonName=$(echo $menu | jq -r '.buttons['$id'] | ([.name]) | @sh' | tr -d \')
+        button=$(echo $button;echo "--button=$buttonName:$id ")
+    done
+    echo $button
+    # This will leverage the field type to filter by one way or another. Some yad types start with type= and some dont' This same json field will be used for either.
+    type=$(echo $menu | jq -r '.type')
+    if [[ "$type" == "" ]]
+    then
+        flags=$(echo "$type $flags")
+    else
+        columns=$(echo $menu | jq -r '.body[].columns[] | keys_unsorted[]')
+        for key in $(echo $columns)
+        do
+            column=$(echo $column;echo "--column=$key ")
+            columnKeys=$(echo $columnKeys;echo ".$key, ")
+        done
+        echo $column
+        columnKeys=${columnKeys::-2}
+        echo $columnKeys
+        rows=$(echo $menu | jq -r '.body[].columns[] | (['"$columnKeys"'])' | tr -d \')
+    fi
+}
+
+wallpaperMenu() {
+    menuName="wallpaper"
+    getMenu $menuName
+    # main body
+    while menuContent=$( \
+            yad $type $width $height $location \
+            "$title" $boarders $textalign \
+            "$flags" \
+            $button  # Menu specific variables. These will pull from the object with the same name as $menuName
+        )
+    do
+        if [ $? == 1 ]
         then
+            echo "Error thrown"
             exit 1
         else
-            echo "testing"
+            menuId=$(echo $menuContent | cut -d \| -f 1)
+            menuFull=$(echo $menuContent | sed 's/|/ /g')
+            case $menuId in
+            1) echo "Selected: $menuFull" ;;
+            2) echo "Selected: $menuFull" ;;
+            3) echo "Selected: $menuFull" ;;
+            *) echo "confused..."
+                echo "reloading data..."
+                getMenu "main"
+                ;;
+            esac
         fi
+        getMenu $menuName
+    done
+}
 
+settingsMenu() {
+    menuName="settings"
+    getMenu $menuName
+    # main body
+    while menuContent=$( \
+            yad $type $width $height $location \
+            "$type" "$title" $boarders $textalign \
+            "$flags" \
+            $button  # Menu specific variables. These will pull from the object with the same name as $menuName
+        )
+    do
+        if [ $? == 1 ]
+        then
+            echo "Error thrown"
+            exit 1
+        else
+            menuId=$(echo $menuContent | cut -d \| -f 1)
+            menuFull=$(echo $menuContent | sed 's/|/ /g')
+            case $menuId in
+            1) echo "Selected: $menuFull" ;;
+            2) echo "Selected: $menuFull" ;;
+            3) echo "Selected: $menuFull" ;;
+            *) echo "confused..."
+                echo "reloading data..."
+                getMenu "main"
+                ;;
+            esac
+        fi
+        getMenu $menuName
+    done
+}
 
-#--imagelist \
-#--hide-headers \
-#--print-column=ALL \
+case $1 in
+wallpaper) wallpaperMenu ;;
+settings) settingsMenu ;;
+esac

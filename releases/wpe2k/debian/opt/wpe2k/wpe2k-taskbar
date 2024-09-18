@@ -1,0 +1,9 @@
+#!/bin/bash
+
+yad --notification \
+--image="media/icons/icon.svg" \
+--image-on-top \
+--text="My Tray Icon" \
+--menu="wallpaper!./wpe2k wallpaper|Settings!./wpe2k settings|Exit !bash -c 'killall yad'" \
+--command="./wpe2k wallpaper" \
+--no-middle
