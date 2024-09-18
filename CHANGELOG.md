@@ -5,6 +5,15 @@
 
 > All notable changes to this project will be documented in this file
 
+## [3.0.0-beta.1](https://github.com/itzteajay-glitch/wpe2k/compare/v2.0.1...v3.0.0-beta.1) (2024-09-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* Monitor script refactor
+
+* Merge pull request #12 from itzteajay-glitch/dev ([13524fd](https://github.com/itzteajay-glitch/wpe2k/commit/13524fd112dda15e55d58972270f4922c7d21d83)), closes [#12](https://github.com/itzteajay-glitch/wpe2k/issues/12)
+
 ## [2.0.1](https://github.com/itzteajay-glitch/wpe2k/compare/v2.0.0...v2.0.1) (2024-09-03)
 
 
